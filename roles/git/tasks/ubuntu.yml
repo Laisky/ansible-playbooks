@@ -1,0 +1,15 @@
+# Install latest Git on Ubuntu
+# No testing!
+
+---
+- name: App PPA
+  sudo: True
+  when: system_os is defined and system_os == 'ubuntu'
+  tags: git
+  apt_repository: repo='ppa:git-core/ppa'
+
+- name: Install git
+  sudo: True
+  when: system_os is defined and system_os == 'ubuntu'
+  tags: git
+  apt: name=git state=latest
