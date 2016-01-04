@@ -1,0 +1,31 @@
+# 安装 virtualenvwrapper
+# 因为 uwsgi 只支持 virtualenvwrapper
+
+---
+- name: Install virtualenvwrapper.
+  tags: python
+  command: "{{pip27}} install virtualenvwrapper {{douban_pypi}}"
+
+- name: Copy virtualenvwrapper bash file.
+  tags: python
+  template: src=virtualenvwrapper.bash
+            dest=~/.bash.d/virtualenvwrapper.bash
+            mode=0774
+            force=yes
+
+- name: Make sure virtualenvwrapper existed in bashrc.
+  tags: python
+  shell: cat ~/.bashrc | grep virtualenvwrapper || echo ''
+  register: is_virtualenvwrapper_existed
+
+- name: Add virtualenvwrapper to .bashrc.
+  tags: python
+  lineinfile: dest=~/.bashrc
+              insertafter=EOF
+              create=yes
+              line="\n# virtualenvwrapper\nsource ~/.bash.d/virtualenvwrapper.bash"
+  when: is_virtualenvwrapper_existed.stdout == ''
+
+- name: Source .bashrc.
+  tags: python
+  shell: source ~/.bashrc

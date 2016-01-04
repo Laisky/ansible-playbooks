@@ -1,0 +1,70 @@
+---
+- name: Is pyenv exists.
+  tags: python
+  shell: pyenv --version | echo ''
+  register: is_pyenv_installed
+
+- name: Clone pyenv repository.
+  tags: python
+  git: repo=http://https://github.com/yyuu/pyenv.git
+       dest=~/.pyenv
+       depth=1
+  when: is_pyenv_installed.stdout == ''
+
+- name: Ensure fragments bash dir exits.
+  tags: python
+  file: dest=~/.bash.d/ state=directory
+
+- name: Install pyenv bash file.
+  tags: python
+  template: src=pyenv.bash dest=~/.bash.d/pyenv.bash mode=0774 force=yes
+
+- name: Make sure pyenv not existed in bashrc.
+  tags: python
+  shell: cat ~/.bashrc | grep pyenv || echo ''
+  register: is_pyenv_existed
+# - debug: var=is_pyenv_existed
+
+- name: Copy pyenv.bash to .bashrc.
+  tags: python
+  lineinfile: dest=~/.bashrc
+              insertafter=EOF
+              create=yes
+              line="\n# pyenv \nsource ~/.bash.d/pyenv.bash"
+  when: is_pyenv_existed.stdout == ''
+
+- name: Source .bashrc.
+  tags: python
+  shell: source ~/.bashrc
+
+- name: Make sure python 2.7.10 has been installed.
+  tags: python
+  shell: pyenv versions | grep 2.7.10 || echo ''
+  register: is_27_installed
+
+- name: Make sure python 3.4.3 has been installed.
+  tags: python
+  shell: pyenv versions | grep 3.4.3 || echo ''
+  register: is_34_installed
+
+- name: Install python 2.7.10.
+  tags: python
+  shell: pyenv install 2.7.10
+  when: is_27_installed.stdout == ''
+
+- name: Install python 3.4.3.
+  tags: python
+  shell: pyenv install 3.4.3
+  when: is_34_installed.stdout == ''
+
+- name: Update pip.
+  tags: python
+  shell: pyenv rehash; \
+         pyenv global 3.4.3; \
+         pip install --upgrade pip; \
+         pyenv global 2.7.10; \
+         pip install --upgrade pip
+
+# - name: Test.
+#   tags: python
+#   shell: echo $PATH
