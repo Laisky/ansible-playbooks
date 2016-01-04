@@ -2,7 +2,9 @@
 # Centos
 - name: Install environ
   sudo: True
-  tags: packages
+  tags:
+    - packages
+    - foundation
   yum: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'centos'
   with_items:
@@ -55,7 +57,9 @@
 # Ubuntu
 - name: Install environ
   sudo: True
-  tags: packages
+  tags:
+    - packages
+    - foundation
   yum: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'ubuntu'
   with_items:

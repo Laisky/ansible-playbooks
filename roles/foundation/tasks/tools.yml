@@ -1,7 +1,9 @@
 ---
 - name: Install tools.
   sudo: True
-  tags: tools
+  tags:
+    - tools
+    - foundation
   yum: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'centos'
   with_items:
@@ -17,7 +19,9 @@
 
 - name: Install tools.
   sudo: True
-  tags: tools
+  tags:
+    - tools
+    - foundation
   apt: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'ubuntu'
   with_items:
@@ -32,22 +36,32 @@
     - telnet
 
 - name: Copy vimrc.
-  tags: tools
+  tags:
+    - tools
+    - foundation
   copy: src=vimrc dest=~/.vimrc mode=0664
 
 - name: Copy bashrc.
-  tags: tools
+  tags:
+    - tools
+    - foundation
   copy: src=bashrc dest=~/.bashrc mode=0664
 
 - name: Ensure fragments bash dir exits.
-  tags: tools
+  tags:
+    - tools
+    - foundation
   file: dest=~/.bash.d/ state=directory mode=0755
 
 - name: Install pyenv bash file.
-  tags: tools
+  tags:
+    - tools
+    - foundation
   copy: src=git-complete.sh dest=~/.bash.d/git-complete.sh mode=0774
 
 - name: Install lessc via npm.
   sudo: True
-  tags: tools
+  tags:
+    - tools
+    - foundation
   npm: name=less global=yes

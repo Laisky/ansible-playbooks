@@ -1,0 +1,66 @@
+# Install RabbitMq on CentOS6.5
+# https://www.digitalocean.com/community/tutorials/how-to-install-and-manage-rabbitmq
+
+
+---
+- name: Create temporary download document
+  when: system_os == 'centos'
+  tags: rabbitmq
+  file: path=/tmp/downloads state=directory mode=755
+
+- name: Download epel
+  when: system_os == 'centos'
+  tags: rabbitmq
+  get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+           dest=/tmp/downloads/epel.rpm
+
+- name: Download remi
+  when: system_os == 'centos'
+  tags: rabbitmq
+  get_url: url=http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+           dest=/tmp/downloads/remi.rpm
+
+- name: Install dependence
+  when: system_os == 'centos'
+  tags: rabbitmq
+  sudo: True
+  yum: name={{item}} state=present
+  with_items:
+    - /tmp/downloads/remi.rpm
+    - /tmp/downloads/epel.rpm
+
+- name: Install erlang
+  when: system_os == 'centos'
+  tags: rabbitmq
+  sudo: True
+  yum: name=erlang state=latest update_cache=yes
+
+- name: Download rabbitmq
+  when: system_os == 'centos'
+  tags: rabbitmq
+  get_url: url=http://www.rabbitmq.com/releases/rabbitmq-server/v3.2.2/rabbitmq-server-3.2.2-1.noarch.rpm
+           dest=/tmp/downloads/rabbitmq.rpm
+
+- name: Add the necessary keys for verification
+  when: system_os == 'centos'
+  tags: rabbitmq
+  sudo: True
+  shell: rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+
+- name: Install rabbitmq
+  when: system_os == 'centos'
+  tags: rabbitmq
+  sudo: True
+  yum: name=/tmp/downloads/rabbitmq.rpm state=present
+
+- name: Set rabbitmq service level
+  when: system_os == 'centos'
+  tags: rabbitmq
+  sudo: True
+  shell: chkconfig rabbitmq-server on
+
+- name: Start rabbitmq
+  when: system_os == 'centos'
+  tags: rabbitmq
+  sudo: True
+  service: name=rabbitmq-server state=started

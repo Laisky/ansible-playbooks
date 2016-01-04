@@ -2,33 +2,43 @@
 # 创建 messerflow 用户
 - name: Create user
   sudo: True
-  tags: users
+  tags:
+    - users
+    - foundation
   user: name=messerflow createhome=no group=devops
   when: server_name is defined and server_name == 'messerflow'
 
 # 创建 cmdb 用户
 - name: Create user
   sudo: True
-  tags: users
+  tags:
+    - users
+    - foundation
   user: name=cmdb createhome=no group=devops
   when: server_name is defined and server_name == 'cmdb'
 
 # 创建 messer 用户
 - name: Create user
   sudo: True
-  tags: users
+  tags:
+    - users
+    - foundation
   user: name=messer createhome=no group=devops
   when: server_name is defined and server_name == 'messer'
 
 # 创建 darth 用户
 - name: Create user
   sudo: True
-  tags: users
+  tags:
+    - users
+    - foundation
   user: name=darth createhome=no group=devops
   when: server_name is defined and server_name == 'darth'
 
 # 让 devops 用的目录有 x 权限
 - name: Add x to devops home.
   sudo: True
-  tags: users
+  tags:
+    - users
+    - foundation
   shell: "chmod +x {{home}}"
