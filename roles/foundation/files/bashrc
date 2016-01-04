@@ -1,0 +1,52 @@
+# .bashrc
+stty icrnl
+stty erase ^?
+# User specific aliases and functions
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias pypi='pip install --trusted-host pypi.douban.com -i http://pypi.douban.com/simple'
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias ls='ls -hFG'
+alias l='ls -lF'
+alias ll='ls -alF'
+alias lt='ls -ltrF'
+alias ll='ls -alF'
+alias lls='ls -alSrF'
+alias llt='ls -altrF'
+
+alias tarc='tar cvf'
+alias tarcz='tar czvf'
+alias tarx='tar xvf'
+alias tarxz='tar xvzf'
+
+alias g='git'
+alias less='less -R'
+alias os='lsb_release -a'
+alias vi='vim'
+
+# Colorize directory listing
+alias ls="ls -ph --color=auto"
+
+# locale
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# complete
+source ~/.bash.d/git-complete.sh
+
+# taobao npm
+alias cnpm="npm --registry=http://registry.npm.taobao.org \
+  --cache=$HOME/.npm/.cache/cnpm \
+  --disturl=http://npm.taobao.org/dist \
+  --userconfig=$HOME/.cnpmrc"

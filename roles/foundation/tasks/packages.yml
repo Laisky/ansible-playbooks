@@ -1,0 +1,83 @@
+---
+# Centos
+- name: Install environ
+  sudo: True
+  tags: packages
+  yum: name={{item}} state=latest update_cache=yes
+  when: system_os is defined and system_os == 'centos'
+  with_items:
+    - make
+    - gcc
+    - gcc-c++
+    - automake
+    - autoconf
+    - zsh
+    - libtool
+    - readline-devel
+    - bzip2
+    - bzip2-devel
+    - libcurl
+    - openssh
+    - nasm
+    - pkgconfig
+    - curl-devel
+    - zlib-devel
+    - libyaml
+    - sqlite
+    - sqlite-devel
+    - openssl-devel
+    - cpio
+    - expat-devel
+    - gettext-devel
+    - libtool
+    - lbzip2
+    - mhash
+    - perl-Digest-SHA1
+    - pcre-devel
+    - blas-devel
+    - lapack-devel
+    - perl
+    - patch
+    - zlib-devel
+    - gtk2-devel
+    - lzo-devel
+    - ccache
+    - gawk
+    - ncurses-devel
+    - mysql-devel
+    - openldap-devel
+    - libxml2
+    - libxml2-devel
+    - libxslt
+    - libxslt-devel
+    - libselinux-python
+
+# Ubuntu
+- name: Install environ
+  sudo: True
+  tags: packages
+  yum: name={{item}} state=latest update_cache=yes
+  when: system_os is defined and system_os == 'ubuntu'
+  with_items:
+    - make
+    - gcc
+    - g++
+    - automake
+    - autoconf
+    - libc6-dev
+    - build-essential
+    - libtool
+    - openssl
+    - libssl-dev
+    - gfortran
+    - libopenblas-dev
+    - liblapack-dev
+    - python-dev
+    - libsqlite3-dev
+    - libbz2-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libffi-dev
+    - ncurses-dev
+    - libldap2-dev
+    - libsasl2-dev

@@ -1,0 +1,38 @@
+---
+- name: Install snmp on centos
+  sudo: True
+  tags: snmp
+  yum: name={{item}} state=latest update_cache=yes
+  when: system_os is defined and system_os == 'centos'
+  with_items:
+    - snmpd
+    - net-snmp-devel
+    - net-snmp-utils
+    - mrtg
+
+- name: Install snmp on ubuntu
+  sudo: True
+  tags: snmp
+  apt: name={{item}} state=latest update_cache=yes
+  when: system_os is defined and system_os == 'ubuntu'
+  with_items:
+    - snmpd
+    - snmp
+    - snmp-mibs-downloader
+
+- name: Copy snmpd.conf
+  copy: src=snmpd.conf dest=/etc/snmp/snmpd.conf
+        owner=root group=root mod=600
+  tags: snmp
+  sudo: True
+
+- name: Set snmpd run level
+  sudo: True
+  tags: snmp
+  when: system_os is defined and system_os == 'centos'
+  shell: chkconfig --level 345 snmpd on
+
+- name: Start snmp
+  sudo: True
+  tags: snmp
+  service: name=snmpd state=started
