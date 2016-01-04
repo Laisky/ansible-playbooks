@@ -1,0 +1,74 @@
+---
+- name: Copy release rpm file.
+  when: system_os == 'centos'
+  tags: mysql
+  copy: src=mysql-community-release-el6-5.noarch.rpm
+        dest=/tmp/mysql-community-release-el6-5.noarch.rpm
+
+- name: Install mysql repo.
+  when: system_os == 'centos'
+  tags: mysql
+  sudo: True
+  shell: yum localinstall -y /tmp/mysql-community-release-el6-5.noarch.rpm
+
+- name: Copy mysql repo file.
+  when: system_os == 'centos'
+  tags: mysql
+  sudo: True
+  copy: src=mysql-community.repo
+        dest=/etc/yum.repos.d/mysql-community.repo
+        mode=644
+
+- name: Check mysql repo is corretly config.
+  when: system_os == 'centos'
+  tags: mysql
+  sudo: True
+  shell: yum repolist enabled | grep mysql
+  register: mysql_repo_info
+
+- name: Install mysql.
+  when: system_os == 'centos'
+  tags: mysql
+  sudo: True
+  yum: name=mysql-community-server
+       state=latest
+       update_cache=yes
+  when: '"5.5" in mysql_repo_info.stdout'
+
+- name: Copy my.cnf.
+  when: system_os == 'centos'
+  tags: mysql
+  sudo: True
+  copy: src=my.cnf
+        dest=/etc/my.cnf
+
+- name: Setup mysql service level.
+  when: system_os == 'centos'
+  tags: mysql
+  sudo: True
+  shell: chkconfig mysqld on
+
+- name: Start mysql
+  when: system_os == 'centos'
+  tags: mysql
+  sudo: True
+  service: name=mysqld state=started
+
+# mysql_user 调不通，无解
+# - name: Install python dependence.
+#   when: system_os == 'centos'
+#   tags: debug
+#   command: '{{pip27}} install MySQL-python {{douban_pypi}}'
+
+# - name: Create root user.
+#   when: system_os == 'centos'
+#   tags: debug
+#   mysql_user: name=root
+#               password={{mysql_passwd}}
+#               priv=*.*:ALL,GRANT
+#               state=present
+
+# - name: Remove empty user.
+#   when: system_os == 'centos'
+#   tags: debug
+#   mysql_user: login_user=root login_password={{mysql_passwd}} name='' state=absent
