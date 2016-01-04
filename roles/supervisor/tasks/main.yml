@@ -1,0 +1,62 @@
+#
+# 通过 pip 安装 supervisor
+#
+
+---
+- name: Install supervisor
+  tags: supervisor
+  command: '{{pip27}} install --upgrade supervisor {{douban_pypi}}'
+
+- name: Link supervisor to /usr/bin
+  tags: supervisor
+  sudo: True
+  shell: "ln -sf {{home}}/.pyenv/versions/2.7.10/bin/supervisor* /usr/bin/."
+
+- name: Link supervisor to /shims
+  tags: supervisor
+  shell: "ln -sf {{home}}/.pyenv/versions/2.7.10/bin/supervisor* {{home}}/.pyenv/shims/."
+
+- name: Create supervisor dir
+  tags: supervisor
+  sudo: True
+  file: dest=/etc/supervisord.d
+        mode=755
+        state=directory
+
+- name: Copy supervisord.conf
+  tags: supervisor
+  sudo: True
+  copy: src=supervisord.conf
+        dest=/etc/supervisord.conf
+        mode=644
+
+# Setup init level on centos
+- name: Copy supervisord to init
+  tags: supervisor
+  when: system_os == 'centos'
+  sudo: True
+  copy: src=supervisord.init
+        dest=/etc/rc.d/init.d/supervisord
+        mode=755
+
+- name: Set supervisord chkconfig
+  tags: supervisor
+  when: system_os == 'centos'
+  sudo: True
+  shell: chkconfig --add supervisord; \
+         chkconfig supervisord on
+
+# Setup init level on ubuntu
+- name: Copy supervisord to init
+  tags: supervisor
+  when: system_os == 'ubuntu'
+  sudo: True
+  copy: src=supervisord.upstart
+        dest=/etc/rc.d/init.d/supervisord
+        mode=755
+
+# Setup upstart level on ubuntu
+- name: Set supervisord service
+  tags: supervisor
+  sudo: True
+  service: name=supervisord state=started
