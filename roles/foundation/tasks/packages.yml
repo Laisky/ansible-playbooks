@@ -74,6 +74,7 @@
     - openssl
     - libssl-dev
     - gfortran
+    - zlib1g-dev
     - libopenblas-dev
     - liblapack-dev
     - python-dev
