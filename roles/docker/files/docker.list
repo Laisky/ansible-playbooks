@@ -1,0 +1,5 @@
+# Ubuntu 12.04
+deb https://apt.dockerproject.org/repo ubuntu-precise main
+
+# Ubuntu 14.04
+# deb https://apt.dockerproject.org/repo ubuntu-trusty main

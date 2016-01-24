@@ -1,0 +1,43 @@
+# Install Docker 1.9
+
+---
+- name: Install dependence
+  tags: docker
+  sudo: True
+  apt: name={{item}} state=latest update_cache=yes
+  when: system_os is defined and system_os == 'ubuntu'
+  with_items:
+    - linux-image-generic-lts-trusty
+    - linux-headers-generic-lts-trusty
+    - xserver-xorg-lts-trusty
+    - libgl1-mesa-glx-lts-trusty
+
+- name: Install apt-key
+  tags: docker
+  sudo: True
+  when: system_os is defined and system_os == 'ubuntu'
+  apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
+
+- name: Update docker.list
+  tags: docker
+  sudo: True
+  when: system_os is defined and system_os == 'ubuntu'
+  copy: src=docker.list dest=/etc/apt/sources.list.d/docker.list mode=644
+
+- name: Remove old lxc-docker
+  tags: docker
+  sudo: True
+  when: system_os is defined and system_os == 'ubuntu'
+  apt: name=lxc-docker state=absent purge=true
+
+- name: Clean old docker file
+  tags: docker
+  sudo: True
+  when: system_os is defined and system_os == 'ubuntu'
+  file: path=/var/lib/docker state=absent
+
+- name: Install new docker
+  tags: docker
+  sudo: True
+  when: system_os is defined and system_os == 'ubuntu'
+  apt: name=docker-engine state=latest update_cache=yes
