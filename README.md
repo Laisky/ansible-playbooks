@@ -15,6 +15,7 @@ Ansible-Playbooks
 
   - foundation
   - git
+  - docker
   - mysql
   - nginx
   - snmp
