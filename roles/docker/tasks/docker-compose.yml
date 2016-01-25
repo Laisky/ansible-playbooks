@@ -1,0 +1,13 @@
+# Install docker-compose
+
+---
+- name: Download docker compose
+  get_url: url=https://github.com/docker/compose/releases/download/1.5.2/run.sh dest=/tmp/docker-compose
+
+- name: Copy docker-compose to /usr/local/bin
+  sudo: True
+  copy: src=/tmp/docker-compose dest=/usr/local/bin/docker-compose mode=755
+
+- name: Initial docker-compose
+  sudo: True
+  shell: docker-compose

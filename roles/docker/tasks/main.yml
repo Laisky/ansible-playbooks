@@ -1,3 +1,4 @@
 ---
 - include: centos.yml
 - include: ubuntu.yml
+- include: docker-compose.yml
