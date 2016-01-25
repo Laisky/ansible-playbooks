@@ -22,4 +22,5 @@ Ansible-Playbooks
   - snmp
   - rabbitmq
   - supervisor
+  - node
 

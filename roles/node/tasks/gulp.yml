@@ -1,0 +1,21 @@
+---
+- name: Install gulp packages
+  npm: name={{item}} global=true
+  sudo: True
+  tags:
+    - node
+    - gulp
+  with_items:
+    - gulp-ruby-sass
+    - gulp-less
+    - gulp-autoprefixer
+    - gulp-minify-css
+    - gulp-jshint
+    - gulp-concat
+    - gulp-uglify
+    - gulp-imagemin
+    - gulp-notify
+    - gulp-rename
+    - gulp-livereload
+    - gulp-cache
+    - del
