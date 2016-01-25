@@ -1,0 +1,24 @@
+---
+ansible_ssh_port: 8866
+ansible_ssh_user: laisky
+ansible_ssh_private_key_file: ./files/id_rsa
+
+user: laisky
+home: /home/laisky
+
+# env
+py27: /home/laisky/.pyenv/versions/2.7.10/bin/python
+pip27: /home/laisky/.pyenv/versions/2.7.10/bin/pip
+py34: /home/laisky/.pyenv/versions/3.4.3/bin/python
+pip34: /home/laisky/.pyenv/versions/3.4.3/bin/pip
+douban_pypi: -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
+
+virtualenv: /usr/local/bin/virtualenv
+uwsgi: /usr/local/bin/uwsgi
+
+# ip
+darth_ip: 10.32.135.43
+messerflow_ip: 10.32.135.23
+messer_ip: 10.32.135.13
+cmdb_ip: 10.32.135.33
+zabbix_ip: 10.32.132.15

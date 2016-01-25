@@ -1,0 +1,11 @@
+[chexiang]
+10.32.189.146
+
+[laisky]
+45.79.66.200
+
+[centos:children]
+chexiang
+
+[ubuntu:children]
+laisky

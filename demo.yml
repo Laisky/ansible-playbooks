@@ -1,0 +1,18 @@
+---
+# - name: Setup devops
+#   hosts: chexiang
+#   user: devops
+#   vars:
+#     user: devops
+#     home: /home/devops
+#   roles:
+#     - git
+
+- name: Setup laisky
+  hosts: laisky
+  user: laisky
+  vars:
+    user: laisky
+    home: /home/laisky
+  roles:
+    - node

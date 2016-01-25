@@ -12,7 +12,6 @@
     - curl
     - htop
     - vim
-    - npm
     - wget
     - unzip
     - telnet
@@ -30,7 +29,6 @@
     - curl
     - htop
     - vim
-    - npm
     - wget
     - unzip
     - telnet
@@ -58,10 +56,3 @@
     - tools
     - foundation
   copy: src=git-complete.sh dest=~/.bash.d/git-complete.sh mode=0774
-
-- name: Install lessc via npm.
-  sudo: True
-  tags:
-    - tools
-    - foundation
-  npm: name=less global=yes

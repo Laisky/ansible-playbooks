@@ -10,6 +10,7 @@ Ansible-Playbooks
 已通过测试的有：
 
   - git
+  - node
 
 ## Roles
 
