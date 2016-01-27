@@ -1,0 +1,23 @@
+# Install Docker
+# https://docs.docker.com/engine/installation/centos/
+
+---
+- name: Update yum source
+  blockinfile:
+    dest:/etc/yum.repos.d/docker.repo
+    insertafter: EOF
+    content: |
+      [dockerrepo]
+      name=Docker Repository
+      baseurl=https://yum.dockerproject.org/repo/main/centos/$releasever/
+      enabled=1
+      gpgcheck=1
+      gpgkey=https://yum.dockerproject.org/gpg
+
+- name: Install docker
+  sudo: True
+  yum: name=docker-engine state=latest update_cache=yes
+
+- name: Set docker start at boot
+  sudo: True
+  shell: chkconfig docker on
