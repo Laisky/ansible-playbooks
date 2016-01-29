@@ -12,7 +12,6 @@ Ansible-Playbooks
   - foundation
   - git
   - node
-  - supervisor
   - docker
 
 ## Roles
