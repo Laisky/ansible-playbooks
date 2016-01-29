@@ -14,6 +14,7 @@ Ansible-Playbooks
   - node
   - docker
   - python
+  - supervisor
 
 ## Roles
 

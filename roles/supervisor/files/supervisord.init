@@ -1,6 +1,3 @@
-# 创建启动脚本
-# sudo vi /etc/rc.d/init.d/supervisord
-
 #!/bin/sh
 #
 # /etc/rc.d/init.d/supervisord
@@ -26,40 +23,42 @@ PIDFILE="/var/run/$prog.pid"
 
 start()
 {
-       echo -n $"Starting $prog: "
-       daemon $prog_bin --pidfile $PIDFILE
-       [ -f $PIDFILE ] && success $"$prog startup" || failure $"$prog startup"
-       echo
+        echo -n $"Starting $prog: "
+        daemon $prog_bin --pidfile $PIDFILE
+        retval=$?
+        echo
+        [ $retval -eq 0 ] && [ -f $PIDFILE ]
+        return $retval
 }
 
 stop()
 {
-       echo -n $"Shutting down $prog: "
-       [ -f $PIDFILE ] && killproc $prog || success $"$prog shutdown"
-       echo
+        echo -n $"Shutting down $prog: "
+        [ -f $PIDFILE ] && killproc $prog || success $"$prog shutdown"
+        echo
 }
 
 case "$1" in
 
- start)
-   start
- ;;
+  start)
+    start
+  ;;
 
- stop)
-   stop
- ;;
+  stop)
+    stop
+  ;;
 
- status)
-       status $prog
- ;;
+  status)
+        status $prog
+  ;;
 
- restart)
-   stop
-   start
- ;;
+  restart)
+    stop
+    start
+  ;;
 
- *)
-   echo "Usage: $0 {start|stop|restart|status}"
- ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|status}"
+  ;;
 
 esac
