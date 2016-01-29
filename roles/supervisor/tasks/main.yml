@@ -53,7 +53,6 @@
         dest=/etc/rc.d/init.d/supervisord
         mode=755
 
-# Setup upstart level on ubuntu
 - name: Set supervisord service
   tags: supervisor
   become: True

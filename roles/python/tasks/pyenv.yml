@@ -6,7 +6,7 @@
 
 - name: Clone pyenv repository.
   tags: python
-  git: repo=http://https://github.com/yyuu/pyenv.git
+  git: repo=https://github.com/yyuu/pyenv.git
        dest=~/.pyenv
        depth=1
   when: is_pyenv_installed.stdout == ''

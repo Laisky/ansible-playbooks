@@ -13,6 +13,7 @@ Ansible-Playbooks
   - git
   - node
   - docker
+  - python
 
 ## Roles
 
@@ -20,6 +21,7 @@ Ansible-Playbooks
   - git
   - docker
   - mysql
+  - python
   - nginx
   - snmp
   - rabbitmq
