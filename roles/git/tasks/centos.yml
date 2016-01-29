@@ -1,15 +1,9 @@
 # Install latest Git on CentOS
 # No testing!
 ---
-- name: Remove old git
-  tags: git
-  become: True
-  yum: name=git state=absent
-  when: system_os is defined and system_os == 'centos'
-
 - name: Install dependence
   tags: git
-  become: True
+  become: yes
   yum: "name={{item}} state=latest update_cache=yes"
   when: system_os is defined and system_os == 'centos'
   with_items:
@@ -21,6 +15,14 @@
     - gettext-devel
     - openssl-devel
     - zlib-devel
+    - gcc
+    - perl-ExtUtils-MakeMaker
+
+- name: Remove old git
+  tags: git
+  become: yes
+  yum: name=git state=removed
+  when: system_os is defined and system_os == 'centos'
 
 - name: Download git 2.5
   tags: git
@@ -41,6 +43,6 @@
     - make prefix=/usr/local/git all
     - make prefix=/usr/local/git install
     - echo "export PATH=$PATH:/usr/local/git/bin" >> /etc/bashrc
-  become: True
+  become: yes
   args:
     chdir: "{{home}}/src/git-2.5.0"

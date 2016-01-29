@@ -3,8 +3,11 @@
 
 ---
 - name: Update yum source
+  tags: docker
+  become: yes
   blockinfile:
-    dest:/etc/yum.repos.d/docker.repo
+    dest: /etc/yum.repos.d/docker.repo
+    create: yes
     insertafter: EOF
     content: |
       [dockerrepo]
@@ -15,9 +18,11 @@
       gpgkey=https://yum.dockerproject.org/gpg
 
 - name: Install docker
-  become: True
+  tags: docker
+  become: yes
   yum: name=docker-engine state=latest update_cache=yes
 
 - name: Set docker start at boot
-  become: True
+  tags: docker
+  become: yes
   shell: chkconfig docker on
