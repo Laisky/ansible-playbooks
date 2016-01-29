@@ -1,9 +1,15 @@
 # Install latest Git on CentOS
 # No testing!
 ---
+- name: Remove old git
+  tags: git
+  become: True
+  yum: name=git state=absent
+  when: system_os is defined and system_os == 'centos'
+
 - name: Install dependence
   tags: git
-  sudo: True
+  become: True
   yum: "name={{item}} state=latest update_cache=yes"
   when: system_os is defined and system_os == 'centos'
   with_items:
@@ -25,9 +31,7 @@
 - name: Unpack git tar
   tags: git
   when: system_os is defined and system_os == 'centos'
-  shell: tar xzf git-2.5.0.tar.gz
-  args:
-    chdir: "{{home}}/src"
+  unarchive: "src={{home}}/src/git-2.5.0.tar.gz dest={{home}}/src/git-2.5.0 copy=no"
 
 - name: make
   tags: git
@@ -37,6 +41,6 @@
     - make prefix=/usr/local/git all
     - make prefix=/usr/local/git install
     - echo "export PATH=$PATH:/usr/local/git/bin" >> /etc/bashrc
-  sudo: True
+  become: True
   args:
     chdir: "{{home}}/src/git-2.5.0"

@@ -23,7 +23,7 @@
 - name: Install dependence
   when: system_os == 'centos'
   tags: rabbitmq
-  sudo: True
+  become: True
   yum: name={{item}} state=present
   with_items:
     - /tmp/downloads/remi.rpm
@@ -32,7 +32,7 @@
 - name: Install erlang
   when: system_os == 'centos'
   tags: rabbitmq
-  sudo: True
+  become: True
   yum: name=erlang state=latest update_cache=yes
 
 - name: Download rabbitmq
@@ -44,23 +44,23 @@
 - name: Add the necessary keys for verification
   when: system_os == 'centos'
   tags: rabbitmq
-  sudo: True
+  become: True
   shell: rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 
 - name: Install rabbitmq
   when: system_os == 'centos'
   tags: rabbitmq
-  sudo: True
+  become: True
   yum: name=/tmp/downloads/rabbitmq.rpm state=present
 
 - name: Set rabbitmq service level
   when: system_os == 'centos'
   tags: rabbitmq
-  sudo: True
+  become: True
   shell: chkconfig rabbitmq-server on
 
 - name: Start rabbitmq
   when: system_os == 'centos'
   tags: rabbitmq
-  sudo: True
+  become: True
   service: name=rabbitmq-server state=started

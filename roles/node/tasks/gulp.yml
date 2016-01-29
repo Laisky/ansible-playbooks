@@ -1,7 +1,7 @@
 ---
 - name: Install gulp packages
   npm: name={{item}} global=true
-  sudo: True
+  become: True
   tags:
     - node
     - gulp

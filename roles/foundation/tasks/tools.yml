@@ -1,6 +1,6 @@
 ---
 - name: Install tools.
-  sudo: True
+  become: True
   tags:
     - tools
     - foundation
@@ -8,6 +8,7 @@
   when: system_os is defined and system_os == 'centos'
   with_items:
     - git
+    - zsh
     - tmux
     - curl
     - htop
@@ -17,7 +18,7 @@
     - telnet
 
 - name: Install tools.
-  sudo: True
+  become: True
   tags:
     - tools
     - foundation
@@ -25,6 +26,7 @@
   when: system_os is defined and system_os == 'ubuntu'
   with_items:
     - git
+    - zsh
     - tmux
     - curl
     - htop

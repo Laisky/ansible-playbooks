@@ -15,9 +15,9 @@
       gpgkey=https://yum.dockerproject.org/gpg
 
 - name: Install docker
-  sudo: True
+  become: True
   yum: name=docker-engine state=latest update_cache=yes
 
 - name: Set docker start at boot
-  sudo: True
+  become: True
   shell: chkconfig docker on

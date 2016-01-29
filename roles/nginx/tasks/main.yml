@@ -3,19 +3,19 @@
 # Install Nginx on CentOS
 # ----------------------
 - name: Update nginx repo on centos
-  sudo: True
+  become: True
   tags: nginx
   copy: src=nginx.repo dest=/etc/yum.repos.d/nginx.repo mode=0644
   when: system_os == 'centos'
 
 - name: Install nginx on centos
-  sudo: True
+  become: True
   tags: nginx
   yum: name=nginx state=latest update_cache=yes
   when: system_os == 'centos'
 
 - name: Set nginx run level on centos
-  sudo: True
+  become: True
   tags: nginx
   shell: chkconfig --level 345 nginx on
   when: system_os == 'centos'
@@ -24,14 +24,14 @@
 # Install Nginx on Ubuntu
 # ----------------------
 - name: Update nginx repo on ubuntu
-  sudo: True
+  become: True
   tags: nginx
   shell: deb http://nginx.org/packages/ubuntu/ lucid nginx; \
          deb-src http://nginx.org/packages/ubuntu/ lucid nginx
   when: system_os == 'ubuntu'
 
 - name: Install nginx on ubuntu
-  sudo: True
+  become: True
   tags: nginx
   apt: name=nginx state=latest update_cache=yes
   when: system_os == 'ubuntu'
@@ -40,6 +40,6 @@
 # Start Nginx
 # ----------------------
 - name: Start nginx
-  sudo: True
+  become: True
   tags: nginx
   service: name=nginx state=started

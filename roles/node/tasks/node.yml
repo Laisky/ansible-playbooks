@@ -1,7 +1,7 @@
 ---
 - name: Remove old npm
   tags: node
-  sudo: True
+  become: True
   apt: name={{item}} state=absent purge=true
   with_items:
     - nodejs
@@ -13,17 +13,17 @@
 
 - name: Install node
   tags: node
-  sudo: True
+  become: True
   apt: name=nodejs state=latest update_cache=yes
 
 - name: Update npm
   tags: node
-  sudo: True
+  become: True
   npm: name=npm global=yes
 
 - name: Install basic package
   tags: node
-  sudo: True
+  become: True
   npm: name={{item}} global=yes
   with_items:
     - less

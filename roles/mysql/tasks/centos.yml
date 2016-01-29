@@ -8,13 +8,13 @@
 - name: Install mysql repo.
   when: system_os == 'centos'
   tags: mysql
-  sudo: True
+  become: True
   shell: yum localinstall -y /tmp/mysql-community-release-el6-5.noarch.rpm
 
 - name: Copy mysql repo file.
   when: system_os == 'centos'
   tags: mysql
-  sudo: True
+  become: True
   copy: src=mysql-community.repo
         dest=/etc/yum.repos.d/mysql-community.repo
         mode=644
@@ -22,14 +22,14 @@
 - name: Check mysql repo is corretly config.
   when: system_os == 'centos'
   tags: mysql
-  sudo: True
+  become: True
   shell: yum repolist enabled | grep mysql
   register: mysql_repo_info
 
 - name: Install mysql.
   when: system_os == 'centos'
   tags: mysql
-  sudo: True
+  become: True
   yum: name=mysql-community-server
        state=latest
        update_cache=yes
@@ -38,20 +38,20 @@
 - name: Copy my.cnf.
   when: system_os == 'centos'
   tags: mysql
-  sudo: True
+  become: True
   copy: src=my.cnf
         dest=/etc/my.cnf
 
 - name: Setup mysql service level.
   when: system_os == 'centos'
   tags: mysql
-  sudo: True
+  become: True
   shell: chkconfig mysqld on
 
 - name: Start mysql
   when: system_os == 'centos'
   tags: mysql
-  sudo: True
+  become: True
   service: name=mysqld state=started
 
 # mysql_user 调不通，无解

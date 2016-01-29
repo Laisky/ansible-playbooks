@@ -8,7 +8,7 @@
 
 - name: Replace pyenv shims pyenv
   tags: python
-  sudo: True
+  become: True
   shell: "ln -sf {{home}}/.pyenv/versions/2.7.10/bin/{{item}} {{home}}/.pyenv/shims/."
   with_items:
     - virtualenv
@@ -16,7 +16,7 @@
 
 - name: Replace /usr/local/bin/pyenv
   tags: python
-  sudo: True
+  become: True
   shell: "ln -sf {{home}}/.pyenv/versions/2.7.10/bin/{{item}} /usr/local/bin/."
   with_items:
     - virtualenv

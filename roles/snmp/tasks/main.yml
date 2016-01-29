@@ -1,6 +1,6 @@
 ---
 - name: Install snmp on centos
-  sudo: True
+  become: True
   tags: snmp
   yum: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'centos'
@@ -11,7 +11,7 @@
     - mrtg
 
 - name: Install snmp on ubuntu
-  sudo: True
+  become: True
   tags: snmp
   apt: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'ubuntu'
@@ -24,15 +24,15 @@
   copy: src=snmpd.conf dest=/etc/snmp/snmpd.conf
         owner=root group=root mod=600
   tags: snmp
-  sudo: True
+  become: True
 
 - name: Set snmpd run level
-  sudo: True
+  become: True
   tags: snmp
   when: system_os is defined and system_os == 'centos'
   shell: chkconfig --level 345 snmpd on
 
 - name: Start snmp
-  sudo: True
+  become: True
   tags: snmp
   service: name=snmpd state=started

@@ -1,19 +1,29 @@
 ---
 # Centos
-- name: Install environ
-  sudo: True
+- name: Install epel-release
+  become: True
   tags:
     - packages
     - foundation
-  yum: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'centos'
+  yum: name={{ item }} state=present update_cache=yes
+  with_items:
+    - epel-release
+
+
+- name: Install environ on CentOS
+  become: True
+  tags:
+    - packages
+    - foundation
+  when: system_os is defined and system_os == 'centos'
+  yum: name={{ item }} state=present update_cache=yes
   with_items:
     - make
     - gcc
     - gcc-c++
     - automake
     - autoconf
-    - zsh
     - libtool
     - readline-devel
     - bzip2
@@ -54,13 +64,30 @@
     - libxslt-devel
     - libselinux-python
 
-# Ubuntu
-- name: Install environ
-  sudo: True
+- name: Upgrade yum
   tags:
     - packages
     - foundation
-  apt: name={{item}} state=latest update_cache=yes
+  become: True
+  when: system_os is defined and system_os == 'centos'
+  yum: name=* state=present update_cache=yes
+
+
+# Ubuntu
+- name: Update apt cache
+  tags:
+    - packages
+    - foundation
+  become: True
+  when: system_os is defined and system_os == 'ubuntu'
+  shell: apt-get update
+
+- name: Install environ on Ubuntu
+  become: True
+  tags:
+    - packages
+    - foundation
+  apt: name={{item}} state=present update_cache=yes
   when: system_os is defined and system_os == 'ubuntu'
   with_items:
     - make
@@ -86,3 +113,11 @@
     - ncurses-dev
     - libldap2-dev
     - libsasl2-dev
+
+- name: Upgrade apt
+  tags:
+    - packages
+    - foundation
+  become: True
+  when: system_os is defined and system_os == 'ubuntu'
+  apt: name=* state=present update_cache=yes

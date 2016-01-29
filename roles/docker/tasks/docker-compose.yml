@@ -7,10 +7,10 @@
 
 - name: Copy docker-compose to /usr/local/bin
   tags: docker
-  sudo: True
+  become: True
   copy: src=/tmp/docker-compose dest=/usr/local/bin/docker-compose mode=755
 
 - name: Initial docker-compose
   tags: docker
-  sudo: True
+  become: True
   shell: docker-compose
