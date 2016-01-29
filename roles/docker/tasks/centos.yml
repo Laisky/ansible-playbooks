@@ -26,3 +26,27 @@
   tags: docker
   become: yes
   shell: chkconfig docker on
+
+- name: Create docker sysconfig file
+  tags: docker
+  become: yes
+  copy:
+    src: docker.sysconfig
+    dest: /etc/sysconfig/docker
+    force: yes
+    mode: 0644
+
+- name: Set daocloud dockerhub
+  tags: docker
+  become: yes
+  shell: "{{item}}"
+  with_items:
+    - sed -i 'N;s|\[Service\]\n|\[Service\]\nEnvironmentFile=-/etc/sysconfig/docker\n|g' /usr/lib/systemd/system/docker.service
+    - sed -i 's|fd://|fd:// $other_args |g' /usr/lib/systemd/system/docker.service
+    - systemctl daemon-reload
+    - service docker restart
+
+- name: Restart docker
+  tags: docker
+  become: yes
+  service: name=docker state=restarted

@@ -9,8 +9,11 @@ Ansible-Playbooks
 
 已通过测试的有：
 
+  - foundation
   - git
   - node
+  - supervisor
+  - docker
 
 ## Roles
 
