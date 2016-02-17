@@ -4,6 +4,7 @@
 ---
 - name: Update yum source
   tags: docker
+  when: system_os is defined and system_os == 'centos'
   become: yes
   blockinfile:
     dest: /etc/yum.repos.d/docker.repo
@@ -19,16 +20,19 @@
 
 - name: Install docker
   tags: docker
+  when: system_os is defined and system_os == 'centos'
   become: yes
   yum: name=docker-engine state=latest update_cache=yes
 
 - name: Set docker start at boot
   tags: docker
+  when: system_os is defined and system_os == 'centos'
   become: yes
   shell: chkconfig docker on
 
 - name: Create docker sysconfig file
   tags: docker
+  when: system_os is defined and system_os == 'centos'
   become: yes
   copy:
     src: docker.sysconfig
@@ -38,6 +42,7 @@
 
 - name: Set daocloud dockerhub
   tags: docker
+  when: system_os is defined and system_os == 'centos'
   become: yes
   shell: "{{item}}"
   with_items:
@@ -46,7 +51,18 @@
     - systemctl daemon-reload
     - service docker restart
 
+- name: Set user run docker without sudo
+  become: yes
+  ignore_errors: yes
+  tags: docker
+  when: system_os is defined and system_os == 'centos'
+  shell: "{{ item }}"
+  with_items:
+    - groupadd docker
+    - "gpasswd -a {{user}} docker"
+
 - name: Restart docker
   tags: docker
+  when: system_os is defined and system_os == 'centos'
   become: yes
   service: name=docker state=restarted

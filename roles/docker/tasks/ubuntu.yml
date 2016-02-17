@@ -37,6 +37,17 @@
   when: system_os is defined and system_os == 'ubuntu'
   file: path=/var/lib/docker state=absent
 
+- name: Set user run docker without sudo
+  become: yes
+  ignore_errors: yes
+  tags: docker
+  when: system_os is defined and system_os == 'ubuntu'
+  shell: {{ item }}
+  with_items:
+    - groupadd docker
+    - "gpasswd -a {{user}} docker"
+    - service docker restart
+
 - name: Install new docker
   tags: docker
   become: True
