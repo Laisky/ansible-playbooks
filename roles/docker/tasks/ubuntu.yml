@@ -42,7 +42,7 @@
   ignore_errors: yes
   tags: docker
   when: system_os is defined and system_os == 'ubuntu'
-  shell: {{ item }}
+  shell: "{{ item }}"
   with_items:
     - groupadd docker
     - "gpasswd -a {{user}} docker"

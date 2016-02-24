@@ -58,6 +58,8 @@ target/
 
 # venv
 .python-version
+venv
+active
 
 # test file
 ops_rsa

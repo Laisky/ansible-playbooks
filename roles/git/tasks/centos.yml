@@ -18,31 +18,32 @@
     - gcc
     - perl-ExtUtils-MakeMaker
 
-- name: Remove old git
+- name: Get current git version
   tags: git
+  shell: git --version | cut -c 13-15
+  register: git_version
+  # ignore_errors: yes
+
+- tags: git
   become: yes
-  yum: name=git state=removed
-  when: system_os is defined and system_os == 'centos'
+  block:
+    - name: Remove old git
+      yum: name=git state=removed
 
-- name: Download git 2.5
-  tags: git
-  when: system_os is defined and system_os == 'centos'
-  get_url: url=https://www.kernel.org/pub/software/scm/git/git-2.5.0.tar.gz
-           dest=~/src/git-2.5.0.tar.gz
+    - name: Download git 2.5
+      get_url: url=https://www.kernel.org/pub/software/scm/git/git-2.5.0.tar.gz
+               dest=~/src/git-2.5.0.tar.gz
 
-- name: Unpack git tar
-  tags: git
-  when: system_os is defined and system_os == 'centos'
-  unarchive: "src={{home}}/src/git-2.5.0.tar.gz dest={{home}}/src/git-2.5.0 copy=no"
+    - name: Unpack git tar
+      unarchive: "src={{home}}/src/git-2.5.0.tar.gz dest={{home}}/src/git-2.5.0 copy=no"
 
-- name: make
-  tags: git
-  when: system_os is defined and system_os == 'centos'
-  shell: "{{item}}"
-  with_items:
-    - make prefix=/usr/local/git all
-    - make prefix=/usr/local/git install
-    - echo "export PATH=$PATH:/usr/local/git/bin" >> /etc/bashrc
-  become: yes
-  args:
-    chdir: "{{home}}/src/git-2.5.0"
+    - name: make
+      shell: "{{item}}"
+      with_items:
+        - make prefix=/usr/local/git all
+        - make prefix=/usr/local/git install
+        - echo "export PATH=$PATH:/usr/local/git/bin" >> /etc/bashrc
+      args:
+        chdir: "{{home}}/src/git-2.5.0"
+  when: system_os is defined and system_os == 'centos' and git_version < 2.5
+

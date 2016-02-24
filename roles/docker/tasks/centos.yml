@@ -49,7 +49,6 @@
     - sed -i 'N;s|\[Service\]\n|\[Service\]\nEnvironmentFile=-/etc/sysconfig/docker\n|g' /usr/lib/systemd/system/docker.service
     - sed -i 's|fd://|fd:// $other_args |g' /usr/lib/systemd/system/docker.service
     - systemctl daemon-reload
-    - service docker restart
 
 - name: Set user run docker without sudo
   become: yes

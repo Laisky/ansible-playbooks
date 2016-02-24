@@ -1,14 +1,13 @@
 # Install docker-compose
 
 ---
-- name: Download docker compose
+- name: Install docker compose
   tags: docker
   become: yes
-  get_url:
-    url: https://github.com/docker/compose/releases/download/1.5.2/run.sh
+  copy:
+    src: docker-compose-Linux-x86_64
     dest: /usr/bin/docker-compose
     mode: 755
-    force: yes
 
 - name: Initial docker-compose
   tags: docker
