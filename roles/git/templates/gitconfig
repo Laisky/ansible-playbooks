@@ -1,0 +1,31 @@
+[user]
+    name = Laisky
+    email = ppcelery@gmail.com
+[color]
+    ui = true
+[alias]
+    st = status -s
+    sto = status -uno
+    di = diff --patience
+    dic = diff --patience --cached
+    co = checkout
+    ci = commit
+    br = branch
+    mg = merge
+    sta = stash
+    ps = push
+    pl = pull
+    dlog = log --decorate
+[diff]
+    algorithm = patience
+[push]
+    default = simple
+[core]
+    excludesfile = /Users/laisky/.gitignore_global
+    editor = /usr/local/bin/vim
+[difftool "sourcetree"]
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path =
+[mergetool "sourcetree"]
+    cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true

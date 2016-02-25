@@ -1,0 +1,18 @@
+# Setup git configuration besides alias
+
+- name: Set git alias
+  tags: git1
+  shell: "git config --global --replace-all alias.{{item.alias}} {{item.orig}}"
+  with_items:
+    - {alias: "st", orig: "'status -s'"}
+    - {alias: "sto", orig: "'status -uno'"}
+    - {alias: "di", orig: "'diff --patience'"}
+    - {alias: "dic", orig: "'diff --patience --cached'"}
+    - {alias: "co", orig: "checkout"}
+    - {alias: "ci", orig: "commit"}
+    - {alias: "br", orig: "branch"}
+    - {alias: "mg", orig: "merge"}
+    - {alias: "sta", orig: "stash"}
+    - {alias: "ps", orig: "push"}
+    - {alias: "pl", orig: "pull"}
+    - {alias: "dlog", orig: "'log --decorate --oneline --graph'"}
