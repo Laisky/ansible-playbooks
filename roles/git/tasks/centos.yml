@@ -29,12 +29,15 @@
     - name: Remove old git
       yum: name=git state=removed
 
-    - name: Download git 2.5
-      get_url: url=https://www.kernel.org/pub/software/scm/git/git-2.5.0.tar.gz
-               dest="{{home}}/src/git-2.5.0.tar.gz"
+    - name: Download git 2.7
+      get_url: url=https://www.kernel.org/pub/software/scm/git/git-2.7.0.tar.gz
+               dest="{{home}}/src/git-2.7.0.tar.gz"
+
+    - name: Create git dir
+      file: "path={{home}}/src/git-2.7.0 state=directory mode=0755"
 
     - name: Unpack git tar
-      unarchive: "src={{home}}/src/git-2.5.0.tar.gz dest={{home}}/src/git-2.5.0 copy=no"
+      unarchive: "src={{home}}/src/git-2.7.0.tar.gz dest={{home}}/src/git-2.7.0 copy=no"
 
     - name: make
       shell: "{{item}}"
@@ -43,6 +46,6 @@
         - make prefix=/usr/local/git install
         - echo "export PATH=$PATH:/usr/local/git/bin" >> /etc/bashrc
       args:
-        chdir: "{{home}}/src/git-2.5.0"
-  when: system_os is defined and system_os == 'centos' and git_version.stdout|float < 2.5
+        chdir: "{{home}}/src/git-2.7.0"
+  when: system_os is defined and system_os == 'centos' and git_version.stdout|float < 2.7
 
