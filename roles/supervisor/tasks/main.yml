@@ -3,7 +3,8 @@
 ---
 - name: Install supervisor
   tags: supervisor
-  command: '{{pip27}} install --upgrade supervisor {{douban_pypi}}'
+  command: '{{pip27}} install --upgrade supervisor'
+  # command: '{{pip27}} install --upgrade supervisor {{douban_pypi}}'
 
 - name: Link supervisor to /usr/bin
   tags: supervisor
