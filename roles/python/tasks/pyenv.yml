@@ -57,14 +57,39 @@
   shell: pyenv install 3.4.3
   when: is_34_installed.stdout == ''
 
-- name: Update pip.
+# sometimes strange
+# pyenv could install python without pip
+# so you need to double check whether the pip has been installed successfully.
+- name: Double check pip2
+  tags: python
+  shell: pyenv global 2.7.10; \
+         pip --version | cut -c 1-3
+  ignore_errors: yes
+  register: is_pip2_installed
+
+- name: Double check pip3
+  tags: python
+  shell: pyenv global 3.4.3; \
+         pip --version | cut -c 1-3
+  ignore_errors: yes
+  register: is_pip3_installed
+
+- name: Reinstall pip2
+  tags: python
+  shell: pyenv global 2.7.10; \
+         easy_install pip
+  when: is_pip2_installed.stdout != 'pip'
+
+- name: Reinstall pip3
+  tags: python
+  shell: pyenv global 3.4.3; \
+         easy_install pip
+  when: is_pip3_installed.stdout != 'pip'
+
+- name: Upgrade pip.
   tags: python
   shell: pyenv rehash; \
          pyenv global 3.4.3; \
          pip install --upgrade pip; \
          pyenv global 2.7.10; \
          pip install --upgrade pip
-
-# - name: Test.
-#   tags: python
-#   shell: echo $PATH

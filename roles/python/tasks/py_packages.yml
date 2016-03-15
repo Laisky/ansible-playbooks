@@ -1,7 +1,9 @@
 ---
 - name: Install python packages
   tags: python
-  pip: name={{item}} extra_args='--trusted-host pypi.douban.com -i http://pypi.douban.com/simple'
+  # sometimes origin pip is faster than mirror
+  # pip: name={{item}} extra_args='--trusted-host pypi.mirrors.ustc.edu.cn -i http://pypi.mirrors.ustc.edu.cn/simple'
+  pip: name={{item}}
   with_items:
     - virtualenv
     - uwsgi

@@ -1,6 +1,6 @@
 ---
 - name: Setup docker hosts
-  hosts: chexiang:&docker:&centos
+  hosts: chexiang:&docker:&centos:&prod
   user: devops
   vars:
     user: devops
@@ -11,4 +11,3 @@
     - python
     - supervisor
     - docker
-

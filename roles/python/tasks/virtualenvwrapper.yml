@@ -4,7 +4,9 @@
 ---
 - name: Install virtualenvwrapper.
   tags: python
-  command: "{{pip27}} install virtualenvwrapper {{douban_pypi}}"
+  # sometimes origin pip is faster than mirror
+  command: "{{pip27}} install virtualenvwrapper"
+  # command: "{{pip27}} install virtualenvwrapper {{douban_pypi}}"
 
 - name: Copy virtualenvwrapper bash file.
   tags: python
