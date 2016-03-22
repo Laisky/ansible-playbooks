@@ -1,0 +1,54 @@
+---
+- tags: nginx
+  become: yes
+  when: system_os is defined and system_os == 'ubuntu'
+  block:
+  - name: Install dependence on ubuntu
+    apt: name={{item}} state=latest update_cache=yes
+    with_items:
+      - make
+      - gcc
+      - g++
+      - automake
+      - autoconf
+      - libc6-dev
+      - build-essential
+      - libtool
+      - openssl
+      - libssl-dev
+      - build-essential
+      - zlib1g-dev
+      - libpcre3-dev
+      - libssl-dev
+      - libxslt1-dev
+      - libxml2-dev
+      - libgd2-xpm-dev
+      - libgeoip-dev
+      - libgoogle-perftools-dev
+      - libperl-dev
+
+- tags: nginx
+  become: yes
+  when: system_os is defined and system_os == 'centos'
+  block:
+    - name: Install dependence on centos
+    yum: name={{item}} state=latest update_cache=yes
+    with_items:
+      - gcc
+      - gcc-c++
+      - make
+      - libtool
+      - zlib
+      - gcc-c++
+      - pcre
+      - pcre-devel
+      - zlib-devel
+      - wget
+      - openssl-devel
+      - libxml2-devel
+      - libxslt-devel
+      - gd-devel
+      - perl-ExtUtils-Embed
+      - GeoIP-devel
+      - gperftools-devel
+
