@@ -1,0 +1,24 @@
+---
+# remote_port: 22
+# remote_user: devops
+# ansible_ssh_private_key_file:
+# proxy_command: ssh -qaY -p 58422 root@10.32.135.110 'nc -w 14400 %h %p'
+
+user: devops
+home: /home/devops
+
+# env
+py27: /home/devops/.pyenv/versions/2.7.10/bin/python
+pip27: /home/devops/.pyenv/versions/2.7.10/bin/pip
+py34: /home/devops/.pyenv/versions/3.4.3/bin/python
+pip34: /home/devops/.pyenv/versions/3.4.3/bin/pip
+douban_pypi: -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
+
+virtualenv: /usr/local/bin/virtualenv
+uwsgi: /usr/local/bin/uwsgi
+
+# proxy
+http_proxy: http://10.90.1.133:8080
+https_proxy: http://10.90.1.133:8080
+ftp_proxy: http://10.90.1.133:8080
+yum_proxy: http://10.90.1.133:8080

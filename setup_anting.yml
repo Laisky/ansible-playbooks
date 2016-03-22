@@ -1,0 +1,14 @@
+---
+- name: Setup anting hosts
+  hosts: anting
+  vars:
+    user: appuser
+    home: /home/appuser
+    system_os: centos
+  roles:
+    - foundation
+    # - git
+    # - python
+
+    # - supervisor
+    # - docker
