@@ -2,14 +2,12 @@
 # No testing!
 
 ---
-- name: App PPA
+- tags: git
   become: True
   when: system_os is defined and system_os == 'ubuntu'
-  tags: git
-  apt_repository: repo='ppa:git-core/ppa'
+  block:
+    - name: App PPA
+      apt_repository: repo='ppa:git-core/ppa'
 
-- name: Install git
-  become: True
-  when: system_os is defined and system_os == 'ubuntu'
-  tags: git
-  apt: name=git state=latest
+    - name: Install git
+      apt: name=git state=latest

@@ -1,9 +1,9 @@
 # zabbix 需要 zabbix 用户能够调用 docker
 ---
-- tags: docker1
+- tags: docker
   become: yes
   block:
     - name: Create zabbix user
-      user: name=zabbix createhome=no group=docker append=yes
+      user: name=zabbix createhome=no groups=zabbix,docker append=yes
       notify:
         - restart docker

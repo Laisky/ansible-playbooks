@@ -1,33 +1,52 @@
+# Install nodejs & npm
+
 ---
-- name: Remove old npm
-  tags: node
-  become: True
-  apt: name={{item}} state=absent purge=true
-  with_items:
-    - nodejs
-    - npm
+- tags: node
+  become: yes
+  when: system_os is defined and system_os == 'ubuntu'
+  block:
+    - name: Update nodesource
+      shell: curl -sL https://deb.nodesource.com/setup | sudo bash -
 
-- name: Update nodesource
-  tags: node
-  shell: curl -sL https://deb.nodesource.com/setup | sudo bash -
+    - name: Install node
+      apt: name={{item}} state=latest update_cache=yes
+      with_items:
+        - nodejs
+        - npm
 
-- name: Install node
-  tags: node
-  become: True
-  apt: name=nodejs state=latest update_cache=yes
+    - name: Update npm
+      npm: name=npm global=yes registry=https://registry.npm.taobao.org
 
-- name: Update npm
-  tags: node
-  become: True
-  npm: name=npm global=yes
+    - name: Install basic package
+      npm: name={{item}} global=yes registry=https://registry.npm.taobao.org
+      with_items:
+        - less
+        - gulp
+        - bower
+        - commitizen
+        - conventional-changelog
 
-- name: Install basic package
-  tags: node
-  become: True
-  npm: name={{item}} global=yes
-  with_items:
-    - less
-    - gulp
-    - bower
-    - commitizen
-    - conventional-changelog
+- tags: node
+  become: yes
+  when: system_os is defined and system_os == 'centos'
+  block:
+    - name: Update nodesource
+      shell: curl --silent --location https://rpm.nodesource.com/setup | bash -
+
+    - name: Install node
+      yum: name={{item}} state=latest update_cache=yes
+      with_items:
+        - nodejs
+        - npm
+
+    - name: Update npm
+      npm: name=npm global=yes registry=https://registry.npm.taobao.org
+
+    - name: Install basic package
+      npm: name={{item}} global=yes registry=https://registry.npm.taobao.org
+      with_items:
+        - less
+        - gulp
+        - bower
+        - commitizen
+        - conventional-changelog

@@ -4,39 +4,32 @@
 # ----------------------
 # Install Nginx on CentOS
 # ----------------------
-- name: Update nginx repo on centos
-  become: True
-  tags: nginx
-  copy: src=nginx.repo dest=/etc/yum.repos.d/nginx.repo mode=0644
-  when: system_os == 'centos'
+- tags: nginx
+  become: yes
+  when: system_os is defined and system_os == 'centos'
+  block:
+    - name: Update nginx repo on centos
+      copy: src=nginx.repo dest=/etc/yum.repos.d/nginx.repo mode=0644
 
-- name: Install nginx on centos
-  become: True
-  tags: nginx
-  yum: name=nginx state=latest update_cache=yes
-  when: system_os == 'centos'
+    - name: Install nginx on centos
+      yum: name=nginx state=latest update_cache=yes
 
-- name: Set nginx run level on centos
-  become: True
-  tags: nginx
-  shell: chkconfig --level 345 nginx on
-  when: system_os == 'centos'
+    - name: Set nginx run level on centos
+      shell: chkconfig --level 345 nginx on
 
 # ----------------------
 # Install Nginx on Ubuntu
 # ----------------------
-- name: Update nginx repo on ubuntu
+- tags: nginx
   become: True
-  tags: nginx
-  shell: deb http://nginx.org/packages/ubuntu/ lucid nginx; \
-         deb-src http://nginx.org/packages/ubuntu/ lucid nginx
-  when: system_os == 'ubuntu'
+  when: system_os is defined and system_os == 'ubuntu'
+  block:
+    - name: Update nginx repo on ubuntu
+      shell: deb http://nginx.org/packages/ubuntu/ lucid nginx; \
+             deb-src http://nginx.org/packages/ubuntu/ lucid nginx
 
-- name: Install nginx on ubuntu
-  become: True
-  tags: nginx
-  apt: name=nginx state=latest update_cache=yes
-  when: system_os == 'ubuntu'
+    - name: Install nginx on ubuntu
+      apt: name=nginx state=latest update_cache=yes
 
 # ----------------------
 # Start Nginx

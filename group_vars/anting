@@ -4,8 +4,8 @@
 # ansible_ssh_private_key_file:
 # proxy_command: ssh -qaY -p 58422 root@10.32.135.110 'nc -w 14400 %h %p'
 
-user: devops
-home: /home/devops
+user: root
+home: /root
 
 # env
 py27: /home/devops/.pyenv/versions/2.7.10/bin/python
@@ -22,3 +22,10 @@ http_proxy: http://10.90.1.133:8080
 https_proxy: http://10.90.1.133:8080
 ftp_proxy: http://10.90.1.133:8080
 yum_proxy: http://10.90.1.133:8080
+
+# ip
+darth_ip: 10.91.233.137
+messerflow_ip: 10.91.233.141
+messer_ip: 10.91.233.148
+cmdb_ip: 10.91.233.149
+zabbix_ip: 10.91.233.141
