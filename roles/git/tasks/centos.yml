@@ -29,9 +29,10 @@
     - name: Remove old git
       yum: name=git state=removed
 
-    - name: Download git 2.7
-      get_url: url=https://www.kernel.org/pub/software/scm/git/git-2.7.0.tar.gz
-               dest="{{home}}/src/git-2.7.0.tar.gz"
+    - name: Copy git 2.7
+      copy: src=git-2.7.0.tar dest="{{home}}/src/git-2.7.0.tar.gz"
+      # get_url: url=https://www.kernel.org/pub/software/scm/git/git-2.7.0.tar.gz
+      #          dest="{{home}}/src/git-2.7.0.tar.gz"
 
     - name: Unpack git tar
       unarchive: "src={{home}}/src/git-2.7.0.tar.gz dest={{home}}/src/ copy=no"
