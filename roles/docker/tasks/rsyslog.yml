@@ -1,22 +1,19 @@
 # Setup rsyslog
 
-- name: Configure rsyslog
-  tags: docker1
+- tags: docker
   become: yes
-  copy:
-    src: rsyslog.conf
-    dest: /etc/rsyslog.d/docker.conf
-    mode: 0664
+  block:
+    - name: Configure rsyslog
+      copy:
+        src: rsyslog.conf
+        dest: /etc/rsyslog.d/docker.conf
+        mode: 0664
 
-- name: Configure logrotate
-  tags: docker1
-  become: yes
-  copy:
-    src: logrotate.conf
-    dest: /etc/logrotate.d/docker.conf
-    mode: 0664
+    - name: Configure logrotate
+      copy:
+        src: logrotate.conf
+        dest: /etc/logrotate.d/docker.conf
+        mode: 0664
 
-- name: Restart rsyslog
-  tags: docker1
-  become: yes
-  service: name=rsyslog state=restarted
+    - name: Restart rsyslog
+      service: name=rsyslog state=restarted

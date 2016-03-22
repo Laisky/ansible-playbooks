@@ -1,6 +1,6 @@
 ---
 - name: Setup docker hosts
-  hosts: chexiang:&docker:&centos:&prod
+  hosts: chexiang:&docker:&centos
   user: devops
   vars:
     user: devops
