@@ -17,9 +17,9 @@ Ansible-Playbooks
   - √ docker
   - mysql
   - √ python
-  - nginx
+  - √ nginx
   - snmp
   - rabbitmq
-  - supervisor
+  - √ supervisor
   - √ node
 

@@ -3,28 +3,29 @@
 ---
 - name: Install supervisor
   tags: supervisor
-  command: '{{pip27}} install --upgrade supervisor'
-  # command: '{{pip27}} install --upgrade supervisor {{douban_pypi}}'
+  # command: '{{pip27}} install --upgrade supervisor'
+  command: '{{pip27}} install --upgrade supervisor {{douban_pypi}}'
 
 - name: Link supervisor to /usr/bin
   tags: supervisor
-  become: True
-  shell: "ln -sf {{home}}/.pyenv/versions/2.7.10/bin/supervisor* /usr/bin/."
+  become: yes
+  shell: "ln -sf {{pyenv}}/versions/2.7.10/bin/supervisor* /usr/bin/."
 
 - name: Link supervisor to /shims
+  become: yes
   tags: supervisor
-  shell: "ln -sf {{home}}/.pyenv/versions/2.7.10/bin/supervisor* {{home}}/.pyenv/shims/."
+  shell: "ln -sf {{pyenv}}/versions/2.7.10/bin/supervisor* {{pyenv}}/shims/."
 
 - name: Create supervisor dir
   tags: supervisor
-  become: True
+  become: yes
   file: dest=/etc/supervisord.d
         mode=755
         state=directory
 
 - name: Copy supervisord.conf
   tags: supervisor
-  become: True
+  become: yes
   copy: src=supervisord.conf
         dest=/etc/supervisord.conf
         mode=644
@@ -32,29 +33,29 @@
 # Setup init level on centos
 - name: Copy supervisord to init
   tags: supervisor
-  when: system_os == 'centos'
-  become: True
+  when: system_os is defined and system_os == 'centos'
+  become: yes
   copy: src=supervisord.init
         dest=/etc/rc.d/init.d/supervisord
         mode=755
 
 - name: Set supervisord chkconfig
   tags: supervisor
-  when: system_os == 'centos'
-  become: True
+  when: system_os is defined and system_os == 'centos'
+  become: yes
   shell: chkconfig --add supervisord; \
          chkconfig supervisord on
 
 # Setup init level on ubuntu
 - name: Copy supervisord to init
   tags: supervisor
-  when: system_os == 'ubuntu'
-  become: True
+  when: system_os is defined and system_os == 'ubuntu'
+  become: yes
   copy: src=supervisord.upstart
         dest=/etc/rc.d/init.d/supervisord
         mode=755
 
 - name: Set supervisord service
   tags: supervisor
-  become: True
+  become: yes
   service: name=supervisord state=started
