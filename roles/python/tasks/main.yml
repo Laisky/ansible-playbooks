@@ -1,4 +1,4 @@
 ---
-- include: pyenv.yml
+# - include: pyenv.yml
 - include: py_packages.yml
 - include: virtualenvwrapper.yml

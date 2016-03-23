@@ -7,35 +7,35 @@
 - name: Clone pyenv repository.
   tags: python
   git: repo=https://github.com/yyuu/pyenv.git
-       dest=~/.pyenv
+       dest={{home}}/.pyenv
        depth=1
   when: is_pyenv_installed.stdout == ''
 
 - name: Ensure fragments bash dir exits.
   tags: python
-  file: dest=~/.bash.d/ state=directory
+  file: dest={{home}}/.bash.d/ state=directory
 
 - name: Install pyenv bash file.
   tags: python
-  template: src=pyenv.bash dest=~/.bash.d/pyenv.bash mode=0774 force=yes
+  template: src=pyenv.bash dest={{home}}/.bash.d/pyenv.bash mode=0774 force=yes
 
 - name: Make sure pyenv not existed in bashrc.
   tags: python
-  shell: cat ~/.bashrc | grep pyenv || echo ''
+  shell: cat {{home}}/.bashrc | grep pyenv || echo ''
   register: is_pyenv_existed
 # - debug: var=is_pyenv_existed
 
 - name: Copy pyenv.bash to .bashrc.
   tags: python
-  lineinfile: dest=~/.bashrc
+  lineinfile: dest={{home}}/.bashrc
               insertafter=EOF
               create=yes
-              line="\n# pyenv \nsource ~/.bash.d/pyenv.bash"
+              line="\n# pyenv \nsource {{home}}/.bash.d/pyenv.bash"
   when: is_pyenv_existed.stdout == ''
 
 - name: Source .bashrc.
   tags: python
-  shell: source ~/.bashrc
+  shell: source {{home}}/.bashrc
 
 - name: Make sure python 2.7.10 has been installed.
   tags: python

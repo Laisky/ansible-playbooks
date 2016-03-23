@@ -3,7 +3,8 @@
   tags: python
   # sometimes origin pip is faster than mirror
   # pip: name={{item}} extra_args='--trusted-host pypi.mirrors.ustc.edu.cn -i http://pypi.mirrors.ustc.edu.cn/simple'
-  pip: name={{item}}
+  # pip: name={{item}}
+  shell: "{{pip27}} install --upgrade {{douban_pypi}} {{item}}"
   with_items:
     - virtualenv
     - uwsgi
@@ -11,7 +12,7 @@
 - name: Replace pyenv shims pyenv
   tags: python
   become: True
-  shell: "ln -sf {{home}}/.pyenv/versions/2.7.10/bin/{{item}} {{home}}/.pyenv/shims/."
+  shell: "ln -sf {{pyenv}}/versions/2.7.10/bin/{{item}} {{pyenv}}/shims/."
   with_items:
     - virtualenv
     - uwsgi
@@ -19,7 +20,7 @@
 - name: Replace /usr/local/bin/pyenv
   tags: python
   become: True
-  shell: "ln -sf {{home}}/.pyenv/versions/2.7.10/bin/{{item}} /usr/local/bin/."
+  shell: "ln -sf {{pyenv}}/versions/2.7.10/bin/{{item}} /usr/local/bin/."
   with_items:
     - virtualenv
     - uwsgi

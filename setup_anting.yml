@@ -1,16 +1,17 @@
 ---
 - name: Setup anting hosts
-  hosts: anting
+  hosts: amesserflow
   vars:
     user: appuser
     home: /home/appuser
     system_os: centos
   roles:
-    - foundation
-    - node
-    - git
-    - nginx
-    - supervisor
+    - mysql
+    # - foundation
+    # - node
+    # - git
+    # - nginx
+    # - supervisor
     # - python
 
     # - supervisor

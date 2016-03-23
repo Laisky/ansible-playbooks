@@ -11,23 +11,23 @@
 - name: Copy virtualenvwrapper bash file.
   tags: python
   template: src=virtualenvwrapper.bash
-            dest=~/.bash.d/virtualenvwrapper.bash
+            dest={{home}}/.bash.d/virtualenvwrapper.bash
             mode=0774
             force=yes
 
 - name: Make sure virtualenvwrapper existed in bashrc.
   tags: python
-  shell: cat ~/.bashrc | grep virtualenvwrapper || echo ''
+  shell: "cat {{home}}/.bashrc | grep virtualenvwrapper || echo ''"
   register: is_virtualenvwrapper_existed
 
 - name: Add virtualenvwrapper to .bashrc.
   tags: python
-  lineinfile: dest=~/.bashrc
+  lineinfile: dest={{home}}/.bashrc
               insertafter=EOF
               create=yes
-              line="\n# virtualenvwrapper\nsource ~/.bash.d/virtualenvwrapper.bash"
+              line="\n# virtualenvwrapper\nsource {{home}}/.bash.d/virtualenvwrapper.bash"
   when: is_virtualenvwrapper_existed.stdout == ''
 
 - name: Source .bashrc.
   tags: python
-  shell: source ~/.bashrc
+  shell: "source {{home}}/.bashrc"
