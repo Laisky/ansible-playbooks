@@ -7,11 +7,8 @@ user: laisky
 home: /home/laisky
 
 # env
-py27: /home/laisky/.pyenv/versions/2.7.10/bin/python
-pip27: /home/laisky/.pyenv/versions/2.7.10/bin/pip
-py34: /home/laisky/.pyenv/versions/3.4.3/bin/python
-pip34: /home/laisky/.pyenv/versions/3.4.3/bin/pip
-douban_pypi: -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
+pyenv: /home/laisky/.pyenv
+
 
 virtualenv: /usr/local/bin/virtualenv
 uwsgi: /usr/local/bin/uwsgi

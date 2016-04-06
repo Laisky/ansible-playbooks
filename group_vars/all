@@ -1,0 +1,14 @@
+# source
+gem_source: https://ruby.taobao.org/
+pypi_source: http://pypi.douban.com/simple
+npm_source: https://registry.npm.taobao.org
+
+douban_pypi: -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
+
+
+# pyenv
+pyenv: "{{home}}/.pyenv"
+py27: "{{pyenv}}/versions/2.7.10/bin/python"
+pip27: "{{pyenv}}/versions/2.7.10/bin/pip"
+py34: "{{pyenv}}/versions/3.4.3/bin/python"
+pip34: "{{pyenv}}/versions/3.4.3/bin/pip"

@@ -1,21 +1,68 @@
 ---
+- name: Install Ruby on CentOS
+  become: yes
+  tags:
+    - node
+    - gulp
+  yum: name={{item}} state=latest update_cache=yes
+  when: system_os is defined and system_os == 'centos'
+  with_items:
+    - ruby
+    - ruby-devel
+
+- name: Install Ruby on Ubuntu
+  become: yes
+  tags:
+    - node
+    - gulp
+  apt: name={{item}} state=latest update_cache=yes
+  when: system_os is defined and system_os == 'ubuntu'
+  with_items:
+    - ruby
+    - ruby-devel
+
+- name: Install compass & sass
+  tags:
+    - node
+    - gulp
+  become: yes
+  gem: name={{item}} repository={{gem_source}} state=latest
+  with_items:
+    - compass
+    - sass
+
 - name: Install gulp packages
-  npm: name={{item}} global=true
+  npm: name={{item}} global=true registry={{npm_source}}
   become: True
   tags:
     - node
     - gulp
   with_items:
-    - gulp-ruby-sass
-    - gulp-less
-    - gulp-autoprefixer
-    - gulp-minify-css
-    - gulp-jshint
-    - gulp-concat
-    - gulp-uglify
-    - gulp-imagemin
-    - gulp-notify
-    - gulp-rename
-    - gulp-livereload
-    - gulp-cache
+    - babel-core
+    - babel-preset-es2015
+    - babel-register
+    - cz-conventional-changelog
     - del
+    - es6-promise
+    - graceful-fs
+    - gulp
+    - gulp-autoprefixer
+    - gulp-babel
+    - gulp-cache
+    - gulp-clean
+    - gulp-clean-css
+    - gulp-compass
+    - gulp-concat
+    - gulp-imagemin
+    - gulp-jshint
+    - gulp-less
+    - gulp-livereload
+    - gulp-notify
+    - gulp-plumber
+    - gulp-rename
+    - gulp-rev
+    - gulp-rev-collector
+    - gulp-uglify
+    - jshint
+    - path
+    - run-sequence

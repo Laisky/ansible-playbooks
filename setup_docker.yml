@@ -6,8 +6,9 @@
     user: devops
     home: /home/devops
   roles:
-    - foundation
-    - git
-    - python
-    - supervisor
-    - docker
+    - node
+    # - foundation
+    # - git
+    # - python
+    # - supervisor
+    # - docker

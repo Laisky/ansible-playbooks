@@ -1,0 +1,28 @@
+# Thu Feb 18 07:55:32 2016 UTC
+# 通过 docker 安装 mongodb
+# ansible 的 docker module 超级不稳定（依赖于 docker-py），
+# 暂时不考虑
+
+---
+- name: Check mongodb is exists
+  tags: mongodb
+  become: yes
+  shell: >
+    docker ps -a | grep mongodb
+  register: is_mongodb_existed
+
+- name: Update mongodb images to 3.2
+  tags: debug
+  become: yes
+  shell: >
+    docker pull mongo:3.2
+
+- name: Install and run mongodb
+  tags: mongodb
+  become: yes
+  shell: >
+    docker run -d \
+      --name=mongodb \
+      -v=/var/lib/mongodb:/data/db \
+      -p=27017:27017 \
+      mongo:3.2
