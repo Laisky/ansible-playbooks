@@ -13,9 +13,3 @@ pyenv: /home/laisky/.pyenv
 virtualenv: /usr/local/bin/virtualenv
 uwsgi: /usr/local/bin/uwsgi
 
-# ip
-darth_ip: 10.32.135.43
-messerflow_ip: 10.32.135.23
-messer_ip: 10.32.135.13
-cmdb_ip: 10.32.135.33
-zabbix_ip: 10.32.132.15

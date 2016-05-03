@@ -1,6 +1,6 @@
 # 配置本地的 registry
 
-- tags: docker-regis
+- tags: docker-registry-client
   become: yes
   block:
     - name: Create crt dir
