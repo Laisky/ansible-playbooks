@@ -63,6 +63,10 @@
     - libxslt
     - libxslt-devel
     - libselinux-python
+    - ruby-devel
+    - rubygems
+    - libffi
+    - libffi-devel
 
 - name: Upgrade yum
   tags:
@@ -113,6 +117,7 @@
     - ncurses-dev
     - libldap2-dev
     - libsasl2-dev
+    - ruby-dev
 
 - name: Upgrade apt
   tags:
