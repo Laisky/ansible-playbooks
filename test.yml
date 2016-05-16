@@ -1,0 +1,10 @@
+---
+
+- name: test
+  hosts: docker01
+  pre_tasks:
+    - shell: echo 'hello'
+  tasks:
+    - shell: echo 'yo'
+  post_tasks:
+    - shell: echo 'goodbye'
