@@ -1,7 +1,8 @@
 ---
 - name: Setup docker hosts
   # hosts: chexiang:&docker:&centos
-  hosts: docker01,docker02
+  # hosts: docker01,docker02
+  hosts: all
   user: devops
   vars:
     user: devops

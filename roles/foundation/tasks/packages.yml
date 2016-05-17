@@ -1,6 +1,6 @@
 ---
 # Centos
-- become: True
+- become: yes
   tags:
     - packages
     - foundation
@@ -74,7 +74,7 @@
 - tags:
     - packages
     - foundation
-  become: True
+  become: yes
   when: system_os is defined and system_os == 'ubuntu'
   block:
     - name: Update apt cache
