@@ -7,9 +7,8 @@
     home: /home/devops
   roles:
     # - node
-    # - foundation
-    # - git
-    # - python
+    - foundation
+    - git
+    - python
     # - supervisor
-    # - docker
     - docker

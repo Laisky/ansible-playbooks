@@ -1,10 +1,15 @@
 ---
 
 - name: test
-  hosts: docker01
-  pre_tasks:
-    - shell: echo 'hello'
+  hosts: localhost
+  vars:
+    message: >
+      aaa
+      bbb
+      ccc
+    new_message: "{{ message[0:-1] }}"
   tasks:
-    - shell: echo 'yo'
-  post_tasks:
-    - shell: echo 'goodbye'
+    - debug:
+        msg: "{{message}}"
+        var: new_message
+

@@ -45,8 +45,7 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-# complete
-source ~/.bash.d/git-complete.sh
+source ~/.bash.d/*
 
 # taobao npm
 alias cnpm="npm --registry=http://registry.npm.taobao.org \
