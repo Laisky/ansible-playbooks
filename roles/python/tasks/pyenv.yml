@@ -17,21 +17,13 @@
 
 - name: Install pyenv bash file.
   tags: python
-  template: src=pyenv.bash dest={{home}}/.bash.d/pyenv.bash mode=0774 force=yes
+  template: src=pyenv.sh dest={{home}}/.bash.d/pyenv.sh mode=0774 force=yes
 
 - name: Make sure pyenv not existed in bashrc.
   tags: python
   shell: cat {{home}}/.bashrc | grep pyenv || echo ''
   register: is_pyenv_existed
 # - debug: var=is_pyenv_existed
-
-- name: Copy pyenv.bash to .bashrc.
-  tags: python
-  lineinfile: dest={{home}}/.bashrc
-              insertafter=EOF
-              create=yes
-              line="\n# pyenv \nsource {{home}}/.bash.d/pyenv.bash"
-  when: is_pyenv_existed.stdout == ''
 
 - name: Source .bashrc.
   tags: python
