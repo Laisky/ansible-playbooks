@@ -1,0 +1,18 @@
+---
+- tags:
+    - centos
+    - repo
+  become: yes
+  when: system_os is defined and system_os == 'centos'
+  block:
+    - name: Replace 163 repo
+      copy:
+        src: CentOS7-Base-163.repo
+        dest: /etc/yum.repos.d/CentOS-Base.repo
+        owner: root
+        group: root
+        mode: 0644
+        force: yes
+      notify:
+        - update yum
+      when: os_version == 7

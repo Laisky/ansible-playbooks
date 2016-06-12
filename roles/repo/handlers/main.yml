@@ -1,0 +1,6 @@
+- name: update yum
+  become: yes
+  shell: "{{item}}"
+  with_items:
+    - yum clean all
+    - yum update -y
