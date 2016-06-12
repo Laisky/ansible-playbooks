@@ -1,0 +1,12 @@
+---
+- name: copy dns resolve
+  become: yes
+  tags:
+    - dns
+  copy:
+    src: resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644
+    force: yes

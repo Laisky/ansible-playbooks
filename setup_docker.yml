@@ -1,7 +1,7 @@
 ---
 - name: Setup docker hosts
-  # hosts: chexiang:&docker:&centos
-  hosts: ds1
+  hosts: chexiang:&docker
+  # hosts: ds1
   # hosts: docker01,docker02
   # hosts: all
   user: devops
@@ -9,10 +9,11 @@
     user: devops
     home: /home/devops
   roles:
-    - repo
-    - foundation
+    # - dns
+    # - repo
+    # - foundation
     # - node
     # - git
-    # - python
+    - python
     # - supervisor
-    - docker
+    # - docker
