@@ -12,7 +12,6 @@
       apt: name={{item}} state=latest update_cache=yes
       with_items:
         - nodejs
-        - npm
 
     - name: Update npm
       npm: name=npm global=yes registry=https://registry.npm.taobao.org
@@ -23,21 +22,20 @@
         - less
         - gulp
         - bower
-        - commitizen
-        - conventional-changelog
+        # - commitizen
+        # - conventional-changelog
 
 - tags: node
   become: yes
   when: system_os is defined and system_os == 'centos'
   block:
     - name: Update nodesource
-      shell: curl --silent --location https://rpm.nodesource.com/setup | bash -
+      shell: curl --silent --location https://rpm.nodesource.com/setup | sudo bash -
 
     - name: Install node
       yum: name={{item}} state=latest update_cache=yes
       with_items:
         - nodejs
-        - npm
 
     - name: Update npm
       npm: name=npm global=yes registry=https://registry.npm.taobao.org
@@ -48,5 +46,5 @@
         - less
         - gulp
         - bower
-        - commitizen
-        - conventional-changelog
+        # - commitizen
+        # - conventional-changelog

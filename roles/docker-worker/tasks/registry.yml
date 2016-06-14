@@ -1,5 +1,5 @@
 # 配置本地的 registry
-
+---
 - tags: docker-registry-client
   become: yes
   block:

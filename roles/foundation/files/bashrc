@@ -1,8 +1,8 @@
 # .bashrc
 stty icrnl
 stty erase ^?
-# User specific aliases and functions
 
+# User specific aliases and functions
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
@@ -37,6 +37,9 @@ export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# ssh agent
+eval $(ssh-agent)
+
 # Path
 export PATH="/usr/local/bin:$PATH"
 
@@ -45,7 +48,7 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-source ~/.bash.d/*.sh
+source ~/.bash.d/git-complete.bash
 
 # taobao npm
 alias cnpm="npm --registry=http://registry.npm.taobao.org \

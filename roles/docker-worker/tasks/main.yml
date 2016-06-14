@@ -1,0 +1,4 @@
+---
+- include: builder.yml
+- include: registry.yml
+- include: zabbix.yml

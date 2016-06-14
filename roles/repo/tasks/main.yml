@@ -1,2 +1,7 @@
 ---
 - include: cenots.yml
+- include: chexiang.yml
+
+- name: Update repo
+  become: yes
+  shell: sudo yum update -y

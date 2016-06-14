@@ -1,0 +1,20 @@
+---
+- name: Install ruby on centos
+  become: yes
+  tags: ruby
+  when: system_os is defined and system_os == 'centos'
+  yum: name={{item}} state=latest update_cache=yes
+  with_items:
+    - ruby
+    - ruby-devel
+
+- name: Install ruby on ubuntu
+  become: yes
+  tags: ruby
+  when: system_os is defined and system_os == 'ubuntu'
+  apt: name={{item}} state=latest update_cache=yes
+  with_items:
+    - ruby
+    - ruby-devel
+
+- include: tools.yml

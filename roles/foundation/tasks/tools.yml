@@ -6,12 +6,14 @@
     - foundation
   yum: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'centos'
+  ignore_errors: yes
   with_items:
     - git
     - zsh
     - tmux
     - curl
     - htop
+    - iftop
     - vim
     - wget
     - unzip
@@ -25,12 +27,14 @@
     - foundation
   apt: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'ubuntu'
+  ignore_errors: yes
   with_items:
     - git
     - zsh
     - tmux
     - curl
     - htop
+    - iftop
     - vim
     - wget
     - unzip
@@ -59,4 +63,4 @@
   tags:
     - tools
     - foundation
-  copy: src=git-complete.sh dest=~/.bash.d/git-complete.sh mode=0774
+  copy: src=git-complete.bash dest=~/.bash.d/git-complete.bash mode=0774

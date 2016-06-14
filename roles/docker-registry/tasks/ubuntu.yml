@@ -1,9 +1,0 @@
-- tags: docker-registry
-  become: yes
-  block:
-    - name: Install packages
-      apt: "name={{item}} state=latest update_cache=yes"
-      with_items:
-          - apache2-utils
-  when: system_os is defined and system_os == 'ubuntu'
-

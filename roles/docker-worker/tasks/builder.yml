@@ -1,0 +1,8 @@
+# config builder ssh public key
+
+---
+- tags: docker-registry
+  lineinfile:
+    dest: "{{home}}/.ssh/authorized_keys"
+    line: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDu9eK8NKfL2RyO4zZuFoqI2C+ax4KaHQh4YclzL0vYR/TU6NW4B5FF46K0gMhiazex3qbN2LfhhY/cGtUYe1oGJU9hSBAXr+2mIZjk/u+noVI2MvRXXSZUpoJ5Pb4VU6zHK4O+IVN1dafrMTrJu48Otv8m5iq8fE+l+B8IV1uoDclsadpoXdzIn2H8ToP7ELXNdIwPGDKpdkv0/sUi22h7kciEh2SB8iNjevLxb0rVwfSNpxnsOvRI++prbwGHEfIc8BMEdA2OB7v5Svbxs0lnaPU9QLqcfOKqQZlMSEmYMfAgCQJ7rizOSFspiivJ8seoxnEUs93p1vzN/AxCjrH/jnnykZV1wx0B+gzMT07hIYJfOIWR0TWXlhpRQ51x32wdC+sls3sifMEWh98SY0yjqEJf2kBo+IaYpsK4ABH+oYdJigW8rejuhYD6u+Zl26r1pBX5fudP8O/7aKu+wfUsFc9gyaeBMC+4UcOUCWfu8NNUcakkcshDyd5kPTiGkGI2C6JbV9wyDG8/lHvQ/fhJHXIEQlMOKaMAqB1EfPUlEdib2ks0M6E4tZaaA0xgYFOrncaDN9y3RIRAFj6ZYM3Z2n81YQZqzcyIzlxmoDHa9JvXCEIL3Qrz1T9MKF7CbXO8RhTYePoSa/SQSFiAtDxktMZrmm8glEExVwXzy2wCRQ== ops@chexiang.com
+
