@@ -4,13 +4,13 @@
   # hosts: docker01,docker02
   # hosts: all
   hosts: regis2,builder2,ds
-  # hosts: ds
+  # hosts: ds1
   user: devops
   vars:
     user: devops
     home: /home/devops
   roles:
-    # - dns
+    - dns
     # - repo
     - foundation
     # - node
