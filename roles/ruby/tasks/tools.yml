@@ -1,7 +1,6 @@
 ---
 - name: install gem tools
   tags: ruby
-  become: yes
   gem: name={{item}} repository={{gem_source}} state=latest
   with_items:
     - compass

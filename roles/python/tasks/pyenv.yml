@@ -1,55 +1,74 @@
 ---
 - name: Is pyenv exists.
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv --version | echo ''
   register: is_pyenv_installed
 
 - name: Clone pyenv repository.
-  tags: python
+  tags:
+    - python
+    - pyenv
   git: repo=https://github.com/yyuu/pyenv.git
        dest={{home}}/.pyenv
        depth=1
   when: is_pyenv_installed.stdout == ''
 
 - name: Ensure fragments bash dir exits.
-  tags: python
+  tags:
+    - python
+    - pyenv
   file: dest={{home}}/.bash.d/ state=directory
 
 - name: Install pyenv bash file.
-  tags: python
+  tags:
+    - python
+    - pyenv
   template: src=pyenv.bash dest={{home}}/.bash.d/pyenv.bash mode=0774 force=yes
 
 - name: Make sure pyenv not existed in bashrc.
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: cat {{home}}/.bashrc | grep pyenv || echo ''
   register: is_pyenv_existed
 # - debug: var=is_pyenv_existed
 
 - name: add pyenv to .bashrc.
-  tags: python
+  tags:
+    - python
+    - pyenv
   lineinfile:
     line: "source {{home}}/.bash.d/pyenv.bash"
     dest: "{{home}}/.bashrc"
-
   when: is_pyenv_existed.stdout == ''
 
 - name: Make sure python 2.7.10 has been installed.
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv versions | grep 2.7.10 || echo ''
   register: is_27_installed
 
 - name: Make sure python 3.4.3 has been installed.
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv versions | grep 3.4.3 || echo ''
   register: is_34_installed
 
 - name: Install python 2.7.10.
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv install 2.7.10
   when: is_27_installed.stdout == ''
 
 - name: Install python 3.4.3.
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv install 3.4.3
   when: is_34_installed.stdout == ''
 
@@ -57,33 +76,43 @@
 # pyenv could install python without pip
 # so you need to double check whether the pip has been installed successfully.
 - name: Double check pip2
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv global 2.7.10; \
          pip --version | cut -c 1-3
   ignore_errors: yes
   register: is_pip2_installed
 
 - name: Double check pip3
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv global 3.4.3; \
          pip --version | cut -c 1-3
   ignore_errors: yes
   register: is_pip3_installed
 
 - name: Reinstall pip2
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv global 2.7.10; \
          easy_install pip
   when: is_pip2_installed.stdout != 'pip'
 
 - name: Reinstall pip3
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv global 3.4.3; \
          easy_install pip
   when: is_pip3_installed.stdout != 'pip'
 
 - name: Upgrade pip.
-  tags: python
+  tags:
+    - python
+    - pyenv
   shell: pyenv rehash; \
          pyenv global 3.4.3; \
          pip install --upgrade pip; \
