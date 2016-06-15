@@ -44,12 +44,14 @@
 - name: Copy vimrc.
   tags:
     - tools
+    - vimrc
     - foundation
   copy: src=vimrc dest=~/.vimrc mode=0664
 
 - name: Copy bashrc.
   tags:
     - tools
+    - bashrc
     - foundation
   copy: src=bashrc dest=~/.bashrc mode=0664
 
