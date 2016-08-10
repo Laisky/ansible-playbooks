@@ -20,55 +20,55 @@
     - name: Install environ on CentOS
       yum: name={{ item }} state=present update_cache=yes
       with_items:
+        - autoconf
+        - automake
         - make
         - gcc
         - gcc-c++
-        - automake
-        - autoconf
-        - libtool
-        - readline-devel
+        - blas-devel
         - bzip2
         - bzip2-devel
-        - libcurl
-        - openssh
-        - nasm
-        - pkgconfig
-        - curl-devel
-        - zlib-devel
-        - libyaml
-        - sqlite
-        - sqlite-devel
-        - openssl-devel
-        - cpio
-        - expat-devel
-        - gettext-devel
-        - libtool
-        - lbzip2
-        - mhash
-        - perl
-        - perl-Digest-SHA1
-        - pcre-devel
-        - blas-devel
-        - lapack-devel
-        - patch
-        - zlib-devel
-        - gtk2-devel
-        - lzo-devel
         - ccache
+        - cpio
+        - curl-devel
+        - expat-devel
         - gawk
-        - ncurses-devel
-        - mysql-devel
-        - openldap-devel
+        - gettext-devel
+        - gtk2-devel
+        - lapack-devel
+        - lbzip2
+        - libcurl
+        - libffi
+        - libffi-devel
+        - libpcap
+        - libpcap-devel
+        - libselinux-python
+        - libtool
         - libxml2
         - libxml2-devel
         - libxslt
         - libxslt-devel
-        - libselinux-python
+        - libyaml
+        - lzo-devel
+        - mhash
+        - mysql-devel
+        - nasm
+        - ncurses
+        - ncurses-devel
+        - openldap-devel
+        - openssh
+        - openssl-devel
+        - patch
+        - pcre-devel
+        - perl
+        - perl-Digest-SHA1
+        - pkgconfig
+        - readline-devel
         - ruby-devel
         - rubygems
-        - libffi
-        - libffi-devel
-
+        - sqlite
+        - sqlite-devel
+        - zlib-devel
 
 # Ubuntu
 - tags:
@@ -83,30 +83,30 @@
     - name: Install environ on Ubuntu
       apt: name={{item}} state=present update_cache=yes
       with_items:
-        - make
-        - gcc
-        - g++
-        - automake
         - autoconf
-        - libc6-dev
+        - automake
+        - make
+        - g++
+        - gcc
         - build-essential
-        - libtool
-        - openssl
-        - libssl-dev
         - gfortran
-        - zlib1g-dev
-        - libopenblas-dev
-        - liblapack-dev
-        - python-dev
-        - libsqlite3-dev
         - libbz2-dev
+        - libc6-dev
+        - libffi-dev
+        - liblapack-dev
+        - libldap2-dev
+        - libopenblas-dev
+        - libsasl2-dev
+        - libsqlite3-dev
+        - libssl-dev
+        - libtool
         - libxml2-dev
         - libxslt1-dev
-        - libffi-dev
         - ncurses-dev
-        - libldap2-dev
-        - libsasl2-dev
+        - openssl
+        - python-dev
         - ruby-dev
+        - zlib1g-dev
 
     - name: Upgrade apt
       apt: name=* state=present update_cache=yes

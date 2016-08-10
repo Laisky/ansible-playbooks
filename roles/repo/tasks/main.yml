@@ -4,4 +4,5 @@
 
 - name: Update repo
   become: yes
-  shell: sudo yum update -y
+  shell: yum update -y
+  ignore_errors: yes

@@ -16,3 +16,35 @@
       notify:
         - update yum
       when: os_version == 7
+
+- tags:
+    - centos
+    - repo
+  become: yes
+  when: system_os is defined and system_os == 'centos' and os_version == 7
+  block:
+    - name: Copy repo
+      copy: "src=rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm dest={{ home }}/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm "
+
+    - name: Install repo
+      ignore_errors: yes
+      shell: rpm -Uvh rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
+
+- tags:
+    - centos
+    - repo
+  become: yes
+  when: system_os is defined and system_os == 'centos' and os_version == 6
+  block:
+    - name: Copy repo
+      copy: "src=rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm dest={{ home }}/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm "
+      notify:
+        - update yum
+
+
+    - name: Install repo
+      ignore_errors: yes
+      shell: rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+      notify:
+        - update yum
+

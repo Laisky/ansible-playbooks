@@ -11,6 +11,12 @@
     - name: Update nginx repo on centos
       copy: src=nginx.repo dest=/etc/yum.repos.d/nginx.repo mode=0644
 
+    - name: Update repo list
+      shell: {{ item }}
+      with_items:
+        - yum clean all
+        - yum update -y
+
     - name: Install nginx on centos
       yum: name=nginx state=latest update_cache=yes
 

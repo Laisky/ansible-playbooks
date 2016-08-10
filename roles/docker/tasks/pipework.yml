@@ -2,6 +2,23 @@
 # 管理 Docker 的网络
 
 ---
+- name: Check pipework existed
+  tags:
+    - docker
+    - pipework
+  stat: path=/tmp/pipework
+  register: pipest
+
+- name: Remove pipework
+  become: yes
+  tags:
+    - docker
+    - pipework
+  file:
+    path: /tmp/pipework
+    state: absent
+  when: pipest.stat.exists
+
 - name: Clone pipework
   tags:
     - docker
@@ -16,9 +33,5 @@
     - docker
     - pipework
   become: yes
-  file:
-    src: /tmp/pipework/pipework
-    path: /usr/bin/pipework
-    state: link
-    force: yes
-    mode: 0755
+  ignore_errors: yes
+  shell: cp -f /tmp/pipework/pipework /usr/bin/pipework
