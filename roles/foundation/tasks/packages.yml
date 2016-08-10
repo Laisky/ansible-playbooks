@@ -69,6 +69,11 @@
         - sqlite
         - sqlite-devel
         - zlib-devel
+        - yum-cron
+
+    - name: Auto update yum
+      service: name=yum-cron state=started enabled=yes
+
 
 # Ubuntu
 - tags:
