@@ -52,6 +52,7 @@
         - lzo-devel
         - mhash
         - mysql-devel
+        - mysql-libs
         - nasm
         - ncurses
         - ncurses-devel
@@ -96,6 +97,8 @@
         - build-essential
         - gfortran
         - libbz2-dev
+        - libreadline6
+        - libreadline6-dev
         - libc6-dev
         - libffi-dev
         - liblapack-dev
@@ -112,6 +115,10 @@
         - python-dev
         - ruby-dev
         - zlib1g-dev
+        - swig
+        - libcurl4-openssl-dev
+        - libmysqlclient-dev
+        - libboost-all-dev
 
     - name: Upgrade apt
       apt: name=* state=present update_cache=yes

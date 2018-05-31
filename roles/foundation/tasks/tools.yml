@@ -19,6 +19,8 @@
     - unzip
     - telnet
     - ruby-devel
+    - pv
+    - haveged
 
 - name: Install tools.
   become: True
@@ -40,6 +42,8 @@
     - unzip
     - telnet
     - ruby-devel
+    - pv
+    - haveged
 
 - name: Copy vimrc.
   tags:

@@ -37,6 +37,8 @@ export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+export HISTTIMEFORMAT='%F %T '
+
 # ssh agent
 # eval $(ssh-agent) > /dev/null
 # ssh-add ~/.ssh/id_rsa > /dev/null
