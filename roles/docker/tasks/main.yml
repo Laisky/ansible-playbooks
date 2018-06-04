@@ -3,5 +3,5 @@
 - include: ubuntu.yml
 - include: docker-compose.yml
 - include: rsyslog.yml
-- include: pipework.yml
-- include: zabbix.yml
+# - include: pipework.yml
+# - include: zabbix.yml
