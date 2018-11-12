@@ -4,11 +4,19 @@
   become: yes
   block:
     - name: Create crt dir
-      file: path=/etc/docker/certs.d/regis.chexiang.com:443/
+      file: path=/etc/docker/certs.d/registry:5000/
             state=directory mode=0755
 
     - name: Copy registry crt
       copy: src=docker-registry.crt
-            dest=/etc/docker/certs.d/regis.chexiang.com:443/ca.crt
-      notify:
-        - restart docker
+            dest=/etc/docker/certs.d/registry:5000/ca.crt
+      # notify:
+      #   - restart docker
+
+    - name: Add hosts
+      lineinfile:
+        dest: /etc/hosts
+        state: present
+        regexp: .+[^\w]registry$
+        line: 172.16.5.11    registry
+

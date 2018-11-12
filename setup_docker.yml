@@ -1,22 +1,22 @@
 ---
 - name: Setup docker hosts
   # hosts: chexiang:&docker
-  hosts: localhost
+  hosts: pateo
   # hosts: all
   # hosts: all
-  user: ubuntu
-  vars:
-    user: ubuntu
-    home: /home/ubuntu
-    os: ubuntu
+  # user: ubuntu
+  # vars:
+  #   user: ubuntu
+  #   home: /home/ubuntu
+  #   os: ubuntu
   roles:
-    - dns
+    # - dns
     # - repo
-    - foundation
+    # - foundation
     # - node
-    - git
+    # - git
     # - ruby
     # - python
-    - supervisor
-    - docker
-    # - docker-worker
+    # - supervisor
+    # - docker
+    - docker-worker

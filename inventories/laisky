@@ -1,5 +1,0 @@
-[linode]
-104.237.143.129
-
-[ubuntu:children]
-linode

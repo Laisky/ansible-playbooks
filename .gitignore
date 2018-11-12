@@ -62,6 +62,13 @@ venv
 active
 
 # test file
-ops_rsa
-id_rsa
-chexiang
+/files/id_rsa
+/files/ops_rsa
+
+/inventories/anting
+/inventories/chexiang
+/inventories/laisky
+/inventories/pateo
+
+/ssh.config
+
