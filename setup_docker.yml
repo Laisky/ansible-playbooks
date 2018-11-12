@@ -1,21 +1,22 @@
 ---
 - name: Setup docker hosts
   # hosts: chexiang:&docker
-  hosts: k8s
+  hosts: localhost
   # hosts: all
   # hosts: all
-  user: devops
+  user: ubuntu
   vars:
-    user: devops
-    home: /home/devops
+    user: ubuntu
+    home: /home/ubuntu
+    os: ubuntu
   roles:
-    # - dns
+    - dns
     # - repo
-    # - foundation
+    - foundation
     # - node
-    # - git
+    - git
     # - ruby
     # - python
-    # - supervisor
+    - supervisor
     - docker
     # - docker-worker

@@ -8,34 +8,39 @@
   apt: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'ubuntu'
   with_items:
-    - linux-image-generic-lts-trusty
-    - linux-headers-generic-lts-trusty
-    - xserver-xorg-lts-trusty
-    - libgl1-mesa-glx-lts-trusty
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
 
-- name: Install apt-key
+- name: Remove old docker
   tags: docker
   become: True
   when: system_os is defined and system_os == 'ubuntu'
-  apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
-
-- name: Update docker.list
-  tags: docker
-  become: True
-  when: system_os is defined and system_os == 'ubuntu'
-  copy: src=docker.list dest=/etc/apt/sources.list.d/docker.list mode=644
-
-- name: Remove old lxc-docker
-  tags: docker
-  become: True
-  when: system_os is defined and system_os == 'ubuntu'
-  apt: name=lxc-docker state=absent purge=true
+  apt: name={{item}} state=absent purge=true
+  with_items:
+    - lxc-docker
+    - docker
+    - docker.io
+    - docker-engine
 
 - name: Clean old docker file
   tags: docker
   become: True
   when: system_os is defined and system_os == 'ubuntu'
   file: path=/var/lib/docker state=absent
+
+- name: Install apt-key
+  tags: docker
+  become: True
+  when: system_os is defined and system_os == 'ubuntu'
+  command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+- name: Update docker.list
+  tags: docker
+  become: True
+  when: system_os is defined and system_os == 'ubuntu'
+  command: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 - name: Set user run docker without sudo
   become: yes
@@ -52,4 +57,4 @@
   tags: docker
   become: True
   when: system_os is defined and system_os == 'ubuntu'
-  apt: name=docker-engine state=latest update_cache=yes
+  apt: name=docker-ce state=latest update_cache=yes

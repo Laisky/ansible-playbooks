@@ -4,9 +4,9 @@
 - name: Install docker compose
   tags: docker
   become: yes
-  copy:
-    src: docker-compose-Linux-x86_64
-    dest: /usr/local/bin/docker-compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m)"
+    dest: /usr/local/bin/docker-composea
     mode: 0755
 
 - name: Initial docker-compose
