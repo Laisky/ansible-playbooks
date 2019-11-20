@@ -123,6 +123,8 @@
         - libmysqlclient-dev
         - libboost-all-dev
         - libreadline-dev
+        - bsd-mailx
+        - postfix
 
     - name: Upgrade apt
       apt: name=* state=present update_cache=yes

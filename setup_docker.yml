@@ -1,7 +1,7 @@
 ---
 - name: Setup docker hosts
   # hosts: chexiang:&docker
-  hosts: pateo
+  hosts: pr
   # hosts: all
   # hosts: all
   # user: ubuntu
