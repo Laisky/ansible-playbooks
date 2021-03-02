@@ -24,10 +24,12 @@
   when: system_os is defined and system_os == 'ubuntu'
   block:
     - name: Install ntp
-      apt: name={{ item }} state=present update_cache=yes
-      with_items:
-        - ntp
-        - ntpdate
+      apt:
+        state: present
+        update_cache: yes
+        pkg:
+          - ntp
+          - ntpdate
 
 # Service
 - become: yes
@@ -38,7 +40,10 @@
   block:
     - name: set timezone
       ignore_errors: yes
-      shell: timedatectl set-timezone Asia/Shanghai
+      shell: timedatectl set-timezone UTC
 
     - name: restart ntpd
-      service: name=ntpd enabled=yes state=restarted
+      ansible.builtin.systemd:
+        name: ntp
+        state: restarted
+        daemon_reload: yes

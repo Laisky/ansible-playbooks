@@ -36,6 +36,7 @@ alias ls="ls -ph --color=auto"
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+export TZ=UTC
 
 export HISTTIMEFORMAT='%F %T '
 
@@ -44,7 +45,7 @@ export HISTTIMEFORMAT='%F %T '
 # ssh-add ~/.ssh/id_rsa > /dev/null
 
 # Path
-export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:$PATH"
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then

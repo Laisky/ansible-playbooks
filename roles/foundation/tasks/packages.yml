@@ -85,15 +85,17 @@
   become: yes
   when: system_os is defined and system_os == 'ubuntu'
   block:
-    - name: Update apt cache
-      shell: apt-get update
-
-    - name: Update apt cache
-      shell: apt-get upgrade -y
+    - name: Upgrade apt
+      apt:
+        name: "*"
+        state: present
+        update_cache: yes
 
     - name: Install environ on Ubuntu
-      apt: name={{item}} state=present update_cache=yes
-      with_items:
+      apt:
+        state: present
+        update_cache: yes
+        pkg:
         - autoconf
         - automake
         - make
@@ -127,4 +129,7 @@
         - postfix
 
     - name: Upgrade apt
-      apt: name=* state=present update_cache=yes
+      apt:
+        name: "*"
+        state: present
+        update_cache: yes

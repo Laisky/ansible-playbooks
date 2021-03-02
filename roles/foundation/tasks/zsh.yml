@@ -1,0 +1,27 @@
+---
+
+- name: use zsh
+  tags:
+    - foundation
+    - zsh
+  become: True
+  user:
+    name: laisky
+    shell: /bin/zsh
+
+- name: install zsh
+  tags:
+    - foundation
+    - zsh
+  shell: wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+  ignore_errors: yes
+
+
+- name: copy .zshrc
+  tags:
+    - foundation
+    - zsh
+  copy:
+    src: zshrc
+    dest: ~/.zshrc
+    mode: 0664

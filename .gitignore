@@ -72,3 +72,5 @@ active
 
 /ssh.config
 
+ssh_config
+files/prikey

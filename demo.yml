@@ -15,4 +15,10 @@
     user: laisky
     home: /home/laisky
   roles:
-    - node
+    - foundation
+    - git
+    - python
+    # - supervisor
+    - docker
+    # - docker-worker
+    # - node

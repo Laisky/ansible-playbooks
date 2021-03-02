@@ -3,3 +3,4 @@
 - include: packages.yml
 - include: tools.yml
 - include: ntp.yml
+- include: zsh.yml

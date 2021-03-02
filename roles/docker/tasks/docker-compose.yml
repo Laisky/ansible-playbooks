@@ -1,15 +1,20 @@
 # Install docker-compose
 
 ---
+
 - name: Install docker compose
   tags: docker
   become: yes
-  get_url:
-    url: "https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m)"
-    dest: /usr/local/bin/docker-composea
-    mode: 0755
+  shell: wget https://github.com/docker/compose/releases/download/1.28.4/docker-compose-$(uname -s)-$(uname -m) -O /usr/local/bin/docker-compose
 
-- name: Initial docker-compose
+
+- name: make sure docker-compose
+  tags: docker
+  become: yes
+  shell: chmod +x /usr/local/bin/docker-compose
+
+
+- name: make sure docker-compose
   tags: docker
   become: yes
   shell: /usr/local/bin/docker-compose -v
