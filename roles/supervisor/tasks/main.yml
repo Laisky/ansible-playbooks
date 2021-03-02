@@ -9,12 +9,12 @@
 - name: Link supervisor to /usr/bin
   tags: supervisor
   become: yes
-  shell: "ln -sf {{pyenv}}/versions/2.7.10/bin/supervisor* /usr/bin/."
+  shell: "ln -sf {{pyenv}}/versions/2.7.18/bin/supervisor* /usr/bin/."
 
 - name: Link supervisor to /shims
   become: yes
   tags: supervisor
-  shell: "ln -sf {{pyenv}}/versions/2.7.10/bin/supervisor* {{pyenv}}/shims/."
+  shell: "ln -sf {{pyenv}}/versions/2.7.18/bin/supervisor* {{pyenv}}/shims/."
 
 - name: Create supervisor dir
   tags: supervisor

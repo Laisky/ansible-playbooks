@@ -10,10 +10,11 @@
 
 - name: Copy virtualenvwrapper bash file.
   tags: python
-  template: src=virtualenvwrapper.bash
-            dest={{home}}/.bash.d/virtualenvwrapper.bash
-            mode=0774
-            force=yes
+  template:
+    src: virtualenvwrapper.bash
+    dest: "{{home}}/.bash.d/virtualenvwrapper.bash"
+    mode: 0774
+    force: yes
 
 - name: Make sure virtualenvwrapper existed in bashrc.
   tags: python

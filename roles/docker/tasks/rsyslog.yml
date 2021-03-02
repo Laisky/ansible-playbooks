@@ -16,4 +16,6 @@
         mode: 0664
 
     - name: Restart rsyslog
-      service: name=rsyslog state=restarted
+      service:
+        name: rsyslog
+        state: restarted

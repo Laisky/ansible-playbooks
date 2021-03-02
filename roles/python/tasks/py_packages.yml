@@ -12,7 +12,7 @@
 - name: Replace pyenv shims pyenv
   tags: python
   become: True
-  shell: "ln -sf {{pyenv}}/versions/2.7.10/bin/{{item}} {{pyenv}}/shims/."
+  shell: "ln -sf {{pyenv}}/versions/3.8.8/bin/{{item}} {{pyenv}}/shims/."
   with_items:
     - virtualenv
     - uwsgi
@@ -20,7 +20,7 @@
 - name: Replace /usr/local/bin/pyenv
   tags: python
   become: True
-  shell: "ln -sf {{pyenv}}/versions/2.7.10/bin/{{item}} /usr/local/bin/."
+  shell: "ln -sf {{pyenv}}/versions/3.8.8/bin/{{item}} /usr/local/bin/."
   with_items:
     - virtualenv
     - uwsgi

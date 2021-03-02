@@ -5,24 +5,31 @@
 - name: Install dependence
   tags: docker
   become: True
-  apt: name={{item}} state=latest update_cache=yes
   when: system_os is defined and system_os == 'ubuntu'
-  with_items:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - software-properties-common
+  apt:
+    state: latest
+    update_cache: yes
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg-agent
 
 - name: Remove old docker
   tags: docker
   become: True
   when: system_os is defined and system_os == 'ubuntu'
-  apt: name={{item}} state=absent purge=true
-  with_items:
-    - lxc-docker
-    - docker
-    - docker.io
-    - docker-engine
+  apt:
+    state: absent
+    purge: true
+    pkg:
+      - lxc-docker
+      - docker
+      - docker.io
+      - docker-engine
+      - containerd
+      - runc
 
 - name: Clean old docker file
   tags: docker
@@ -34,13 +41,13 @@
   tags: docker
   become: True
   when: system_os is defined and system_os == 'ubuntu'
-  command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 - name: Update docker.list
   tags: docker
   become: True
   when: system_os is defined and system_os == 'ubuntu'
-  command: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 - name: Set user run docker without sudo
   become: yes
@@ -48,13 +55,24 @@
   tags: docker
   when: system_os is defined and system_os == 'ubuntu'
   shell: "{{ item }}"
-  with_items:
+  loop:
     - groupadd docker
     - "gpasswd -a {{user}} docker"
-    - service docker restart
 
 - name: Install new docker
   tags: docker
   become: True
   when: system_os is defined and system_os == 'ubuntu'
-  apt: name=docker-ce state=latest update_cache=yes
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: yes
+
+- name: restart docker
+  tags: docker
+  become: True
+  when: system_os is defined and system_os == 'ubuntu'
+  service:
+    name: docker
+    state: restarted
+    enabled: yes

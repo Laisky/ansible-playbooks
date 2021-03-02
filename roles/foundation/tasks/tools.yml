@@ -21,16 +21,16 @@
     - ruby-devel
     - pv
     - haveged
+    - bash
+    - libcap-ng-utils
 
 - name: Install tools.
   become: True
   tags:
     - tools
     - foundation
-  apt: name={{item}} state=latest update_cache=yes
-  when: system_os is defined and system_os == 'ubuntu'
-  ignore_errors: yes
-  with_items:
+  apt:
+    pkg:
     - git
     - zsh
     - tmux
@@ -41,9 +41,15 @@
     - wget
     - unzip
     - telnet
-    - ruby-devel
+    - ruby-dev
     - pv
     - haveged
+    - bash
+    - libcap-ng-utils
+    state: latest
+    update_cache: yes
+  when: system_os is defined and system_os == 'ubuntu'
+  ignore_errors: yes
 
 - name: Copy vimrc.
   tags:
@@ -58,6 +64,19 @@
     - bashrc
     - foundation
   copy: src=bashrc dest=~/.bashrc mode=0664
+
+- name: Change user shell to bash
+  become: True
+  tags:
+    - tools
+    - bashrc
+    - foundation
+  user:
+    name: "{{ item }}"
+    state: present
+    shell: /usr/bin/bash
+  loop:
+    - laisky
 
 - name: Ensure fragments bash dir exits.
   tags:
