@@ -8,8 +8,9 @@
 #   roles:
 #     - git
 
+
 - name: Setup laisky
-  hosts: laisky
+  hosts: b2
   user: laisky
   vars:
     user: laisky

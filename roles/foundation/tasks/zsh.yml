@@ -25,3 +25,9 @@
     src: zshrc
     dest: ~/.zshrc
     mode: 0664
+
+- name: install autosuggestion
+  tags:
+    - foundation
+    - zsh
+  shell: git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

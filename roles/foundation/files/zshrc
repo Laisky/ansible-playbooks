@@ -46,6 +46,12 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TZ=UTC
 
+# proxy
+export PROXY_SRV="100.79.190.34:17777"
+alias goproxy="export http_proxy=http://$PROXY_SRV https_proxy=http://$PROXY_SRV HTTP_PROXY=http://$PROXY_SRV HTTPS_PROXY=http://$PROXY_SRV"
+alias disproxy="unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY"
+export NO_PROXY="localhost,127.0.0.1,100.64.0.0/10,192.168.99.100,10.96.0.0/12,192.168.99.0/24,192.168.39.0/24"
+
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
