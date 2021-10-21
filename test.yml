@@ -1,0 +1,35 @@
+---
+
+- name: test
+  hosts: localhost
+  vars:
+    - gem_source: https://ruby.taobao.org/
+    - pypi_source: http://pypi.douban.com/simple
+    - npm_source: https://registry.npm.taobao.org
+    - douban_pypi: -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
+    - user: laisky
+    - home: /home/laisky
+    - pyenv: /home/laisky/.pyenv
+    - virtualenv: /usr/local/bin/virtualenv
+    - uwsgi: /usr/local/bin/uwsgi
+    - system_os: ubuntu
+  roles:
+    - dns
+    - repo
+    - foundation
+    - node
+    - git
+    - ruby
+    - python
+    - supervisor
+
+  # vars:
+  #   message: >
+  #     aaa
+  #     bbb
+  #     ccc
+  #   new_message: "{{ message[0:-1] }}"
+  # tasks:
+  #   - debug:
+  #       msg: "{{message}}"
+  #       var: new_message

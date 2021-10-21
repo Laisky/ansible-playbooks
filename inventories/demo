@@ -2,7 +2,8 @@
 10.32.189.146
 
 [laisky]
-45.79.66.200
+localhost
+
 
 [centos:children]
 chexiang
