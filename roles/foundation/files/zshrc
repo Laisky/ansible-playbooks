@@ -156,5 +156,6 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org \
 
 # golang
 export GO111MODULE=on
-export GOPATH=$HOME/Projects/go
+export GOPATH=$HOME/.go
+export GOROOT=/opt/go
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
